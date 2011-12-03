@@ -1,3 +1,29 @@
+#
+# Packages seem to be grossly inconsistent across operating systems.
+# Therefore, the following slightly complicated set of variables is
+# used in order to determine which packages to install based on
+# client/server combinations.
+#
+#        variable: $clientpackage
+#            type: string
+#     description: package to install when realizing amanda::client
+#
+#        variable: $serverpackage
+#            type: string
+#     description: package to install when realizing amanda::server
+#
+#        variable: $serverprovidesclient
+#            type: boolean
+#     description: set to true if it is the case that the server
+#                  package conflicts with the client package.
+#
+#        variable: $genericpackage
+#            type: string
+#     description: if set, this variable overrides clientpackage
+#                  and serverpackage. any time either of those packages
+#                  would have been realized, this one is realized
+#                  instead.
+#
 class amanda::params {
 
   case $operatingsystem {
@@ -9,7 +35,6 @@ class amanda::params {
       $groups               = [ "backup" ]
       $clientpackage        = "amanda-backup-client"
       $serverpackage        = "amanda-backup-server"
-      $genericpackage       = "amanda"
       $serverprovidesclient = true  # since we're using zmanda packages
       $amandadpath          = "/usr/libexec/amanda/amandad"
       $amandadirectories    = [
@@ -23,8 +48,6 @@ class amanda::params {
       $user                 = "amanda"
       $group                = "sys"
       $groups               = [ ]
-      $clientpackage        = "amanda-client"
-      $serverpackage        = "amanda-server"
       $genericpackage       = "amanda"
       $serverprovidesclient = true # there's only one package for solaris
       $amandadpath          = "/opt/csw/libexec/amanda/amandad"
@@ -41,7 +64,6 @@ class amanda::params {
       $groups               = [ "operator" ]
       $clientpackage        = "misc/amanda-client"
       $serverpackage        = "misc/amanda-server"
-      $genericpackage       = ""
       $serverprovidesclient = false # idunno
       $amandadpath          = "/usr/local/libexec/amanda/amandad"
       $amandadirectories    = [
@@ -59,7 +81,6 @@ class amanda::params {
       $groups               = [ ]
       $clientpackage        = "amanda-client"
       $serverpackage        = "amanda-server"
-      $genericpackage       = "amanda"
       $serverprovidesclient = false # idunno
       $amandadpath          = "/usr/libexec/amanda/amandad"
       $amandadirectories    = [

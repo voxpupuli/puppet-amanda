@@ -13,11 +13,10 @@ class amanda::client (
 
   realize(Ssh_authorized_key["amanda/defaultkey"])
 
-  case $operatingsystem {
-    "FreeBSD": { realize(Package["amanda/client"]) }
-    "Solaris": { realize(Package["amanda"])        }
-    "Ubuntu":  { realize(Package["amanda/client"]) }
-    default:   { notify { "Undefined OS":; }       }
+  if $amanda::params::genericpackage {
+    realize(Package["amanda"])
+  } else {
+    realize(Package["amanda/client"])
   }
 
   file {

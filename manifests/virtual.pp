@@ -18,9 +18,8 @@ class amanda::virtual {
   }
 
   File {
-    owner => $amanda::params::user,
-    group => $amanda::params::group,
-    tag   => "amanda_common"
+    owner   => $amanda::params::user,
+    group   => $amanda::params::group,
   }
 
   @file {
@@ -44,16 +43,32 @@ class amanda::virtual {
       mode   => "700",
   }
 
-  @package {
-    "amanda":
-      ensure => present,
-      name   => $amanda::params::genericpackage;
-    "amanda/client":
-      ensure => present,
-      name   => $amanda::params::clientpackage;
-    "amanda/server":
-      ensure => present,
-      name   => $amanda::params::serverpackage;
+  Package {
+    ensure => present,
+    before => [
+      File["/etc/dumpdates"],
+      File["${amanda::params::homedir}"],
+      File["${amanda::params::homedir}/.ssh"],
+      File["${amanda::params::homedir}/.ssh/config"],
+      File["${amanda::params::homedir}/.ssh/authorized_keys"],
+      File[$amanda::params::amandadirectories],
+      File[$amanda::params::homedir],
+      User[$amanda::params::user],
+    ]
+  }
+
+  if $amanda::params::genericpackage {
+    @package {
+      "amanda":
+        name   => $amanda::params::genericpackage;
+    }
+  } else {
+    @package {
+      "amanda/client":
+        name   => $amanda::params::clientpackage;
+      "amanda/server":
+        name   => $amanda::params::serverpackage;
+    }
   }
 
   @ssh_authorized_key {

@@ -23,10 +23,10 @@ class amanda::server (
     $use_group = $amanda::params::group
   }
 
-  case $operatingsystem {
-    "Solaris": { realize(Package["amanda"])        }
-    "Ubuntu":  { realize(Package["amanda/server"]) }
-    default:   { notify { "Undefined OS":; }       }
+  if $amanda::params::genericpackage {
+    realize(Package["amanda"])
+  } else {
+    realize(Package["amanda/server"])
   }
 
   if $managedirs == "true" {

@@ -2,6 +2,16 @@ class amanda::client::xinetd {
   include amanda::params
   include xinetd
 
+  Xinetd::Service {
+    require => [
+      User[$amanda::params::user],
+      $amanda::params::genericpackage ? {
+        true  => Package["amanda"],
+        undef => Package["amanda/client"],
+      },
+    ],
+  }
+
   xinetd::service {
     "amanda_udp":
       servicename => "amanda",
