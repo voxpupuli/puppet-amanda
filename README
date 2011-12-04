@@ -2,22 +2,22 @@ Module: pdxcat-amanda
 
 Example usage:
 
-class { "amanda::server":
-  configs => [ "rolling", "archive" ],
-  owner   => "amanda",
-  group   => "amanda",
-}
+  class { "amanda::server":
+    configs => [ "rolling", "archive" ],
+    owner   => "amanda",
+    group   => "amanda",
+  }
 
 If more specificity required:
 
-file { "/etc/amanda":
-  ensure => directory;
-}
+  file { "/etc/amanda":
+    ensure => directory;
+  }
 
-amanda::config { "rolling":
-  ensure  => "present",
-  confdir => "/etc/amanda";
-}
+  amanda::config { "rolling":
+    ensure  => "present",
+    confdir => "/etc/amanda";
+  }
 
 Then place your config files in the "files" directory of the module,
 in one of:
@@ -26,4 +26,18 @@ in one of:
   amanda/files/default/<config>/*
 
 The contents of the config directory will be synced to the confdir you
-specify in the amanda::config resource.
+specify in the amanda::config resource. If you want to keep your config
+files in a seperate puppet module, then specify the module when you
+declare the server class:
+
+  class { "amanda::server":
+    configs       => [ "rolling", "archive" ],
+    owner         => "amanda",
+    group         => "amanda",
+    confsrcmodule => "secrets",
+    confsrcroot   => "amanda",
+  }
+
+In this example, config files will be pulled from the files/amanda
+directory of the "secrets" module. e.g.
+puppet:///modules/secrets/amanda/defaults
