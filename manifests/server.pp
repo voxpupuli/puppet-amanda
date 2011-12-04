@@ -1,11 +1,13 @@
 class amanda::server (
-  $configs    = [],
-  $confdir    = "/etc/amanda",
-  $dirmode    = "755",
-  $filemode   = "644",
-  $managedirs = "true",
-  $owner      = undef,
-  $group      = undef
+  $configs       = [],
+  $confdir       = "/etc/amanda",
+  $dirmode       = "755",
+  $filemode      = "644",
+  $managedirs    = "true",
+  $confsrcmodule = "amanda",
+  $confsrcroot   = undef,
+  $owner         = undef,
+  $group         = undef
 ) {
   include amanda
   include amanda::params
@@ -41,11 +43,13 @@ class amanda::server (
 
   amanda::define::config {
     $configs:
-      ensure    => present,
-      confdir   => $confdir,
-      owner     => $use_owner,
-      group     => $use_group,
-      filemode  => $filemode,
-      dirmode   => $dirmode;
+      ensure         => present,
+      confdir        => $confdir,
+      confsrcmodule  => $confsrcmodule,
+      confsrcroot    => $confsrcroot,
+      owner          => $use_owner,
+      group          => $use_group,
+      filemode       => $filemode,
+      dirmode        => $dirmode;
   }
 }

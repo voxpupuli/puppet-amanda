@@ -1,15 +1,17 @@
 define amanda::define::config (
-  $config   = $name,
-  $confdir  = "/etc/amanda/${name}",
-  $ensure   = "present",
-  $owner    = undef,
-  $group    = undef,
-  $filemode = "644",
-  $dirmode  = "755"
+  $ensure         = "present",
+  $config         = $name,
+  $confdir        = "/etc/amanda/${name}",
+  $confsrcmodule  = "amanda",
+  $confsrcroot    = undef,
+  $owner          = undef,
+  $group          = undef,
+  $filemode       = "644",
+  $dirmode        = "755"
 ) {
   include amanda::params
 
-  $files = amanda_config_files($config, $confdir)
+  $files = amanda_config_files($config, $confdir, $confsrcmodule, $confsrcroot)
 
   if $owner {
     $use_owner = $owner
