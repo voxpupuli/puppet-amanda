@@ -41,3 +41,7 @@ declare the server class:
 In this example, config files will be pulled from the files/amanda
 directory of the "secrets" module. e.g.
 puppet:///modules/secrets/amanda/defaults
+
+Regardless of whether you are placing your config files in the amanda
+module directly or using a seperate module, the search path of 
+[<fqdn>, "default"] will still be used in the confsrcroot.
