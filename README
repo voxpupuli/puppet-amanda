@@ -22,8 +22,8 @@ If more specificity required:
 Then place your config files in the "files" directory of the module,
 in one of:
 
-  amanda/files/<fqdn>/<config>/*
-  amanda/files/default/<config>/*
+  amanda/files/server/<fqdn>/<config>/*
+  amanda/files/server/default/<config>/*
 
 The contents of the config directory will be synced to the confdir you
 specify in the amanda::config resource. If you want to keep your config
