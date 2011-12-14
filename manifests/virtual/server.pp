@@ -5,7 +5,7 @@ class amanda::virtual::server inherits amanda::virtual {
   $serverprovidesclient = $amanda::params::serverprovidesclient
   $genericpackage = $amanda::params::genericpackage
 
-  if $serverprovidesclient and not $genericpackage {
+  if $serverprovidesclient and !$genericpackage {
     Package["amanda/client"] {
       ensure => absent,
     }

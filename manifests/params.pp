@@ -33,6 +33,7 @@ class amanda::params {
       $user                 = "amandabackup"
       $group                = "disk"
       $groups               = [ "backup" ]
+      $genericpackage       = false
       $clientpackage        = "amanda-backup-client"
       $serverpackage        = "amanda-backup-server"
       $serverprovidesclient = true  # since we're using zmanda packages
@@ -62,6 +63,7 @@ class amanda::params {
       $user                 = "amanda"
       $group                = "amanda"
       $groups               = [ "operator" ]
+      $genericpackage       = false
       $clientpackage        = "misc/amanda-client"
       $serverpackage        = "misc/amanda-server"
       $serverprovidesclient = false # idunno
@@ -79,6 +81,7 @@ class amanda::params {
       $user                 = "amandabackup"
       $group                = "backup"
       $groups               = [ ]
+      $genericpackage       = false
       $clientpackage        = "amanda-client"
       $serverpackage        = "amanda-server"
       $serverprovidesclient = false # idunno
