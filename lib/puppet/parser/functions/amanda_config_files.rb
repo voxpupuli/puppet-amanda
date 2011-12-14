@@ -3,17 +3,18 @@ module Puppet::Parser::Functions
 
     config        = args[0]
     config_path   = args[1] || File.join('/etc/amanda', config)
-    config_module = args[3] || 'amanda'
-    config_root   = args[4] || 'server'
+    config_module = args[2] || 'amanda'
+    config_root   = args[3] || 'server'
 
     config_path = File.join(config_path, config)
 
     files_path = String.new
     master_prefix = String.new
 
-    module_path = Puppet::Module.find(config_module, Thread.current[:environment]).file_directory,
+    module_path = Puppet::Module.find(config_module, Thread.current[:environment]).file_directory
 
-    [lookupvar('fqdn'), "default"].each do |subdir|
+    subdirs = [lookupvar('fqdn'), 'default']
+    subdirs.delete_if{ |i| i.is_a?(Symbol) }.each do |subdir|
       master_prefix = File.join(config_root, subdir, config)
       files_path = File.join(module_path, config_root, subdir, config)
       break if File.exists?(files_path)
