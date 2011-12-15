@@ -2,46 +2,59 @@ Module: pdxcat-amanda
 
 Example usage:
 
-  class { "amanda::server":
-    configs => [ "rolling", "archive" ],
-    owner   => "amanda",
-    group   => "amanda",
+  node "backup.cat.pdx.edu" {
+    class { "amanda::server":
+      configs => [ "rolling", "archive" ],
+      owner   => "amanda",
+      group   => "amanda",
+    }
   }
 
-If more specificity required:
-
-  file { "/etc/amanda":
-    ensure => directory;
+  node "client.cat.pdx.edu" {
+    class { "amanda::client":
+      server => "backup.cat.pdx.edu",
+    }
   }
 
-  amanda::config { "rolling":
-    ensure  => "present",
-    confdir => "/etc/amanda";
+More control/specificity:
+
+  node "backup.cat.pdx.edu" {
+    file { "/etc/amanda":
+      ensure => directory;
+    }
+
+    amanda::config { "rolling":
+      ensure  => "present",
+      confdir => "/etc/amanda";
+    }
   }
 
-Then place your config files in the "files" directory of the module,
-in one of:
+Then place your config files in the "files" directory of the module:
 
-  amanda/files/server/<fqdn>/<config>/*
-  amanda/files/server/default/<config>/*
+  1. master: $modulepath/amanda/files/server/<namevar>/*
 
-The contents of the config directory will be synced to the confdir you
+The contents of the <namevar> directory will be synced to the confdir you
 specify in the amanda::config resource. If you want to keep your config
 files in a seperate puppet module, then specify the module when you
 declare the server class:
 
-  class { "amanda::server":
-    configs       => [ "rolling", "archive" ],
-    owner         => "amanda",
-    group         => "amanda",
-    confsrcmodule => "secrets",
-    confsrcroot   => "amanda",
+  node "backup.cat.pdx.edu" {
+    class { "amanda::server":
+      configs       => [ "rolling", "archive" ],
+      confdir       => "/etc/amanda",
+      owner         => "amanda",
+      group         => "amanda",
+      confsrcmodule => "secrets",
+      confsrcroot   => "amanda",
+    }
   }
 
-In this example, config files will be pulled from the files/amanda
-directory of the "secrets" module. e.g.
-puppet:///modules/secrets/amanda/defaults
+In this example, config files will be pulled from:
 
-Regardless of whether you are placing your config files in the amanda
-module directly or using a seperate module, the search path of 
-[<fqdn>, "default"] will still be used in the confsrcroot.
+  1. master: $modulepath/secrets/files/amanda/rolling/*
+  2. master: $modulepath/secrets/files/amanda/archive/*
+
+And synced to:
+
+  1. agent: /etc/amanda/rolling/*
+  2. agent: /etc/amanda/archive/*
