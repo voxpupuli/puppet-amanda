@@ -6,8 +6,8 @@ class amanda::client::xinetd {
     require => [
       User[$amanda::params::user],
       $amanda::params::genericpackage ? {
-        true  => Package["amanda"],
-        false => Package["amanda/client"],
+        undef   => Package["amanda/client"],
+        default => Package["amanda"],
       },
     ],
   }
