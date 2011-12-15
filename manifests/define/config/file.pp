@@ -18,7 +18,7 @@ define amanda::define::config::file (
   file { "${agent_path}":
     owner  => $use_owner,
     group  => $use_group,
-    source => "puppet://${server}/modules/amanda/${master_path}",
+    source => "puppet://${server}/${master_path}",
     mode   => $type ? {
       "file"      => $filemode,
       "directory" => $dirmode,
@@ -26,6 +26,6 @@ define amanda::define::config::file (
     ensure => $ensure ? {
       "present" => $type,
       "absent"  => absent,
-    },  
+    },
   }
 }
