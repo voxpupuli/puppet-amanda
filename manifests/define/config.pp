@@ -3,7 +3,7 @@ define amanda::define::config (
   $config         = $name,
   $confdir        = "/etc/amanda/${name}",
   $confsrcmodule  = "amanda",
-  $confsrcroot    = "server/example",
+  $confsrcroot    = "server",
   $owner          = undef,
   $group          = undef,
   $filemode       = "644",

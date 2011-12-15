@@ -4,7 +4,7 @@ module Puppet::Parser::Functions
     config        = args[0]
     config_path   = args[1] || File.join('/etc/amanda', config)
     config_module = args[2] || 'amanda'
-    config_root   = args[3] || 'server/example'
+    config_root   = args[3] || 'server'
 
     config_path   = File.join(config_path, config)
     module_path   = Puppet::Module.find(config_module, Thread.current[:environment]).file_directory
