@@ -32,7 +32,7 @@ class amanda::params {
       $uid                  = "59500"
       $user                 = "amandabackup"
       $group                = "disk"
-      $groups               = [ "backup" ]
+      $groups               = [ "backup", "tape" ]
       $clientpackage        = "amanda-backup-client"
       $serverpackage        = "amanda-backup-server"
       $serverprovidesclient = true  # since we're using zmanda packages
@@ -40,6 +40,8 @@ class amanda::params {
       $amandadirectories    = [
         "/tmp/amanda",
         "/tmp/amanda/amandad",
+        "/var/amanda",
+        "/var/amanda/gnutar-lists",
       ]
     }
     "Solaris": {
