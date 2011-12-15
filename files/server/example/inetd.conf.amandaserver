@@ -1,0 +1,1 @@
+amanda stream tcp nowait amandabackup /usr/libexec/amanda/amandad amandad -auth=bsdtcp amdump amindexd amidxtaped

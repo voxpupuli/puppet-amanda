@@ -1,0 +1,2 @@
+#amanda stream tcp nowait amandabackup /usr/libexec/amanda/amandad -auth=bsdtcp amdump
+amanda stream tcp nowait amandabackup /usr/libexec/amanda/amandad amandad -auth=bsdtcp amdump
