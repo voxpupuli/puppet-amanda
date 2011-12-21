@@ -37,6 +37,8 @@ class amanda::params {
       $serverpackage        = "amanda-backup-server"
       $serverprovidesclient = true  # since we're using zmanda packages
       $amandadpath          = "/usr/libexec/amanda/amandad"
+      $amandaidxpath        = "/usr/libexec/amanda/amindexd"
+      $amandatapedpath      = "/usr/libexec/amanda/amidxtaped"
       $amandadirectories    = [
         "/tmp/amanda",
         "/tmp/amanda/amandad",
@@ -53,6 +55,8 @@ class amanda::params {
       $genericpackage       = "amanda"
       $serverprovidesclient = true # there's only one package for solaris
       $amandadpath          = "/opt/csw/libexec/amanda/amandad"
+      $amandaidxpath        = "/opt/csw/libexec/amanda/amindexd"
+      $amandatapedpath      = "/opt/csw/libexec/amanda/amidxtaped"
       $amandadirectories    = [
         "/tmp/amanda",
         "/tmp/amanda/amandad",
@@ -68,6 +72,8 @@ class amanda::params {
       $serverpackage        = "misc/amanda-server"
       $serverprovidesclient = false # idunno
       $amandadpath          = "/usr/local/libexec/amanda/amandad"
+      $amandaidxpath        = "/usr/local/libexec/amanda/amindexd"
+      $amandatapedpath      = "/usr/local/libexec/amanda/amidxtaped"
       $amandadirectories    = [
         "/tmp/amanda",
         "/tmp/amanda/amandad",
@@ -85,6 +91,8 @@ class amanda::params {
       $serverpackage        = "amanda-server"
       $serverprovidesclient = false # idunno
       $amandadpath          = "/usr/libexec/amanda/amandad"
+      $amandaidxpath        = "/usr/libexec/amanda/amindexd"
+      $amandatapedpath      = "/usr/libexec/amanda/amidxtaped"
       $amandadirectories    = [
         "/tmp/amanda",
         "/tmp/amanda/amandad",
