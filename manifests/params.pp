@@ -100,6 +100,8 @@ class amanda::params {
     }
   }
 
+  $serverdaemons     = "amdump amindexd amidxtaped"
+  $clientdaemons     = "amdump"
   $defaultkeytype    = "rsa"
   $defaultkeyoptions = [
     "no-port-forwarding",

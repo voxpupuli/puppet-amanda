@@ -25,12 +25,6 @@ class amanda::server (
     $use_group = $amanda::params::group
   }
 
-  if $amanda::params::genericpackage {
-    realize(Package["amanda"])
-  } else {
-    realize(Package["amanda/server"])
-  }
-
   if $managedirs == "true" {
     file {
       $confdir:
@@ -39,6 +33,28 @@ class amanda::server (
         group  => $use_group,
         mode   => $dirmode;
     }
+  }
+
+  if $amanda::params::genericpackage {
+    realize(Package["amanda"])
+  } else {
+    realize(Package["amanda/server"])
+  }
+
+  realize(
+    Concat["${amanda::params::homedir}/.amandahosts"],
+    Ssh_authorized_key["amanda/defaultkey"],
+    Xinetd::Service["amanda_indexd"],
+    Xinetd::Service["amanda_taped"],
+    Xinetd::Service["amanda_tcp"],
+    Xinetd::Service["amanda_udp"],
+  )
+
+  concat::fragment {
+    "amanda::server::server_root@localhost":
+      target  => "${amanda::params::homedir}/.amandahosts",
+      content => "localhost root amindexd amidxtaped\n",
+      order   => "10";
   }
 
   amanda::define::config {
@@ -52,4 +68,5 @@ class amanda::server (
       filemode       => $filemode,
       dirmode        => $dirmode;
   }
+
 }

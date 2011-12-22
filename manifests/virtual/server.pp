@@ -10,4 +10,9 @@ class amanda::virtual::server inherits amanda::virtual {
       ensure => absent,
     }
   }
+
+  Xinetd::Service["amanda_tcp"] {
+    server_args => "-auth=bsdtcp ${amanda::params::serverdaemons}";
+  }
+
 }

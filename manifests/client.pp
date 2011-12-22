@@ -4,6 +4,7 @@ class amanda::client (
 ) {
   include amanda
   include amanda::params
+  include concat::setup
 
   if $remoteuser {
     $use_remoteuser = $remoteuser
@@ -11,7 +12,12 @@ class amanda::client (
     $use_remoteuser = $amanda::params::user
   }
 
-  realize(Ssh_authorized_key["amanda/defaultkey"])
+  realize(
+    Concat["${amanda::params::homedir}/.amandahosts"],
+    Ssh_authorized_key["amanda/defaultkey"],
+    Xinetd::Service["amanda_tcp"],
+    Xinetd::Service["amanda_udp"],
+  )
 
   if $amanda::params::genericpackage {
     realize(Package["amanda"])
@@ -19,12 +25,11 @@ class amanda::client (
     realize(Package["amanda/client"])
   }
 
-  file {
-    "${amanda::params::homedir}/.amandahosts":
-      ensure  => file,
-      owner   => $amanda::params::user,
-      group   => $amanda::params::group,
-      mode    => "600",
-      content => "${server} ${use_remoteuser} amdump\n";
+
+  concat::fragment {
+    "amanda::client::amdump_${use_remoteuser}@${server}":
+      target  => "${amanda::params::homedir}/.amandahosts",
+      content => "${server} ${use_remoteuser} amdump\n",
+      order   => "00";
   }
 }
