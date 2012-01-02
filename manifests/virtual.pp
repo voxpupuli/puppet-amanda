@@ -108,7 +108,7 @@ class amanda::virtual {
       user        => $amanda::params::user,
       group       => $amanda::params::group,
       server      => $amanda::params::amandadpath,
-      server_args => "-auth=bsdtcp ${amanda::params::clientdaemons}";
+      server_args => "-auth=bsd ${amanda::params::clientdaemons}";
     "amanda_tcp":
       servicename => "amanda",
       socket_type => "stream",
