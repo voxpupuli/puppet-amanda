@@ -13,11 +13,16 @@ class amanda::client (
   }
 
   realize(
-    Concat["${amanda::params::homedir}/.amandahosts"],
     Ssh_authorized_key["amanda/defaultkey"],
-    Xinetd::Service["amanda_tcp"],
-    Xinetd::Service["amanda_udp"],
   )
+
+  # for solaris, which does not use xinetd, we don't manage a superserver.
+  if $operatingsystem != "Solaris" {
+    realize(
+      Xinetd::Service["amanda_tcp"],
+      Xinetd::Service["amanda_udp"],
+    )
+  }
 
   if $amanda::params::genericpackage {
     realize(Package["amanda"])
@@ -25,11 +30,10 @@ class amanda::client (
     realize(Package["amanda/client"])
   }
 
-
-  concat::fragment {
+  amanda::define::amandahosts {
     "amanda::client::amdump_${use_remoteuser}@${server}":
-      target  => "${amanda::params::homedir}/.amandahosts",
       content => "${server} ${use_remoteuser} amdump\n",
       order   => "00";
   }
+
 }

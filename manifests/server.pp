@@ -42,17 +42,21 @@ class amanda::server (
   }
 
   realize(
-    Concat["${amanda::params::homedir}/.amandahosts"],
     Ssh_authorized_key["amanda/defaultkey"],
-    Xinetd::Service["amanda_indexd"],
-    Xinetd::Service["amanda_taped"],
-    Xinetd::Service["amanda_tcp"],
-    Xinetd::Service["amanda_udp"],
   )
 
-  concat::fragment {
+  # for solaris, which does not use xinetd, we don't manage a superserver.
+  if $operatingsystem != "Solaris" {
+    realize(
+      Xinetd::Service["amanda_indexd"],
+      Xinetd::Service["amanda_taped"],
+      Xinetd::Service["amanda_tcp"],
+      Xinetd::Service["amanda_udp"],
+    )
+  }
+
+  amanda::define::amandahosts {
     "amanda::server::server_root@localhost":
-      target  => "${amanda::params::homedir}/.amandahosts",
       content => "localhost root amindexd amidxtaped\n",
       order   => "10";
   }

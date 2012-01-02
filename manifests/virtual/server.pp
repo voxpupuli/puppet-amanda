@@ -12,7 +12,7 @@ class amanda::virtual::server inherits amanda::virtual {
   }
 
   Xinetd::Service["amanda_tcp"] {
-    server_args => "-auth=bsdtcp ${amanda::params::serverdaemons}";
+    server_args => "-auth=bsdtcp ${amanda::params::serverdaemons}",
   }
 
 }

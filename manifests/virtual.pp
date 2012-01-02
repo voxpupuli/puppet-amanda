@@ -83,9 +83,10 @@ class amanda::virtual {
 
   @concat {
     "${amanda::params::homedir}/.amandahosts":
-      owner => $amanda::params::user,
-      group => $amanda::params::group,
-      mode  => "600";
+      owner   => $amanda::params::user,
+      group   => $amanda::params::group,
+      mode    => "600",
+      require => File[$amanda::params::homedir];
   }
 
   Xinetd::Service {

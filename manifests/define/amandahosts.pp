@@ -1,5 +1,6 @@
 define amanda::define::amandahosts (
-  $ensure         = "present",
+  $ensure = "present",
+  $order  = "20",
   $content
 ) {
   include amanda::params
@@ -11,6 +12,6 @@ define amanda::define::amandahosts (
     "amanda::define::amandahosts::$title":
       target  => "${amanda::params::homedir}/.amandahosts",
       content => $content,
-      order   => "20";
+      order   => $order;
   }
 }
