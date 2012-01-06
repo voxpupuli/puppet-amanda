@@ -42,10 +42,6 @@ class amanda::server (
     realize(Package["amanda/server"])
   }
 
-  realize(
-    Ssh_authorized_key["amanda/defaultkey"],
-  )
-
   # for solaris, which does not use xinetd, we don't manage a superserver.
   if ($xinetd == "true" and $operatingsystem != "Solaris") {
     realize(

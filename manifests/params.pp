@@ -100,19 +100,6 @@ class amanda::params {
     }
   }
 
-  $serverdaemons     = "amdump amindexd amidxtaped"
-  $clientdaemons     = "amdump"
-  $defaultkeytype    = "rsa"
-  $defaultkeyoptions = [
-    "no-port-forwarding",
-    "no-X11-forwarding",
-    "no-agent-forwarding",
-    "command=\"${amandadpath} -auth=ssh amdump\"",
-  ]
-  $defaultkey = "AAAAB3NzaC1yc2EAAAABIwAAAQEAuzggkXn3U4Pt9wG7/bCQNcXJJWWhCeqhcf\
-MchN4OgkLEoUCUsUJDYfCZrDvK9hNYpTybMt/GE2xOTFrhOX9MGvX8LqADlUrHrX0WJuSdkxsONzTvq\
-x8m24pIo0sdo3kRiS8PABr4S98fvO7JK0/3YXF7p7WwiZthegiIZI+ModfdLUTNxH6jceOtt8hCVx5C\
-mykiQsJGEFtM2l0CgNrjD66NjHuadax8qmBdg5iTExPabPS1H1zbJ2FFMbxSuzs4xP9aodsw/1CMNx1\
-IUe9L2lEbpA8LOgo7HYgh/TzXEfnujQyie+xWMOCVZHrcAvFn7bGol5zNGKtuVILsVgvVew=="
-
+  $serverdaemons = "amdump amindexd amidxtaped"
+  $clientdaemons = "amdump"
 }
