@@ -1,13 +1,14 @@
 class amanda::server (
-  $configs       = [],
   $confdir       = "/etc/amanda",
-  $dirmode       = "755",
-  $filemode      = "644",
-  $managedirs    = "true",
+  $configs       = [],
   $confsrcmodule = "amanda",
   $confsrcroot   = undef,
+  $dirmode       = "755",
+  $filemode      = "644",
+  $group         = undef,
+  $managedirs    = "true",
   $owner         = undef,
-  $group         = undef
+  $xinetd        = "true"
 ) {
   include amanda
   include amanda::params
@@ -46,7 +47,7 @@ class amanda::server (
   )
 
   # for solaris, which does not use xinetd, we don't manage a superserver.
-  if $operatingsystem != "Solaris" {
+  if ($xinetd == "true" and $operatingsystem != "Solaris") {
     realize(
       Xinetd::Service["amanda_indexd"],
       Xinetd::Service["amanda_taped"],

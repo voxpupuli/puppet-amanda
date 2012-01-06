@@ -1,6 +1,7 @@
 class amanda::client (
+  $remoteuser = undef,
   $server     = "backup.$domain",
-  $remoteuser = undef
+  $xinetd     = "true"
 ) {
   include amanda
   include amanda::params
@@ -12,12 +13,8 @@ class amanda::client (
     $use_remoteuser = $amanda::params::user
   }
 
-  realize(
-    Ssh_authorized_key["amanda/defaultkey"],
-  )
-
   # for solaris, which does not use xinetd, we don't manage a superserver.
-  if $operatingsystem != "Solaris" {
+  if ($xinetd == "true" and $operatingsystem != "Solaris") {
     realize(
       Xinetd::Service["amanda_tcp"],
       Xinetd::Service["amanda_udp"],
