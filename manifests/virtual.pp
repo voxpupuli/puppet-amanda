@@ -86,7 +86,11 @@ class amanda::virtual {
       owner   => $amanda::params::user,
       group   => $amanda::params::group,
       mode    => "600",
-      require => File[$amanda::params::homedir];
+      require => File[$amanda::params::homedir],
+      gnu     => $operatingsystem ? {
+        "Solaris" => false,
+        default   => true,
+      };
   }
 
   Xinetd::Service {
