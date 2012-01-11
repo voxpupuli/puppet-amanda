@@ -31,6 +31,7 @@ class amanda::params {
       $homedir              = "/var/lib/amanda"
       $uid                  = "59500"
       $user                 = "amandabackup"
+      $shell                = "/bin/sh"
       $group                = "disk"
       $groups               = [ "backup", "tape" ]
       $clientpackage        = "amanda-backup-client"
@@ -50,6 +51,7 @@ class amanda::params {
       $homedir              = "/var/lib/amanda"
       $uid                  = "59500"
       $user                 = "amanda"
+      $shell                = "/bin/sh"
       $group                = "sys"
       $groups               = [ ]
       $genericpackage       = "amanda"
@@ -66,6 +68,7 @@ class amanda::params {
       $homedir              = "/var/db/amanda"
       $uid                  = "59500"
       $user                 = "amanda"
+      $shell                = "/bin/sh"
       $group                = "amanda"
       $groups               = [ "operator" ]
       $clientpackage        = "misc/amanda-client"
@@ -85,6 +88,7 @@ class amanda::params {
       $homedir              = "/var/lib/amanda"
       $uid                  = "59500"
       $user                 = "amandabackup"
+      $shell                = "/bin/sh"
       $group                = "backup"
       $groups               = [ ]
       $clientpackage        = "amanda-client"

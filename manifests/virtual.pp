@@ -13,6 +13,7 @@ class amanda::virtual {
       uid     => $amanda::params::uid,
       gid     => $amanda::params::group,
       home    => $amanda::params::homedir,
+      shell   => $amanda::params::shell,
       groups  => $amanda::params::groups,
       comment => "Amanda backup user",
       tag     => "amanda_common";
