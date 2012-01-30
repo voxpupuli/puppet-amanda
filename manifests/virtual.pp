@@ -46,31 +46,34 @@ class amanda::virtual {
       mode   => "700",
   }
 
-  Package {
-    ensure => present,
-    before => [
-      File["/etc/dumpdates"],
-      File["${amanda::params::homedir}"],
-      File["${amanda::params::homedir}/.ssh"],
-      File["${amanda::params::homedir}/.ssh/config"],
-      File["${amanda::params::homedir}/.ssh/authorized_keys"],
-      File[$amanda::params::amandadirectories],
-      File[$amanda::params::homedir],
-      User[$amanda::params::user],
-    ]
-  }
+  ##
+  # This variable is used because parameter defaults don't seem to descend
+  # into if blocks.
+  $packagebefore = [
+    File["/etc/dumpdates"],
+    File["${amanda::params::homedir}"],
+    File["${amanda::params::homedir}/.ssh"],
+    File["${amanda::params::homedir}/.ssh/config"],
+    File["${amanda::params::homedir}/.ssh/authorized_keys"],
+    File[$amanda::params::amandadirectories],
+    File[$amanda::params::homedir],
+    User[$amanda::params::user],
+  ]
 
   if $amanda::params::genericpackage {
     @package {
       "amanda":
-        name   => $amanda::params::genericpackage;
+        name   => $amanda::params::genericpackage,
+        before => $packagebefore;
     }
   } else {
     @package {
       "amanda/client":
-        name   => $amanda::params::clientpackage;
+        name   => $amanda::params::clientpackage,
+        before => $packagebefore;
       "amanda/server":
-        name   => $amanda::params::serverpackage;
+        name   => $amanda::params::serverpackage,
+        before => $packagebefore;
     }
   }
 
