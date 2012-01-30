@@ -69,7 +69,10 @@ class amanda::params {
       $uid                  = "59500"
       $user                 = "amanda"
       $shell                = "/bin/sh"
-      $group                = "amanda"
+      $group                = $operatingsystemrelease ? {
+        /^[4567]|^8\.[10]/  => "operator", # FreeBSD versions < 8.2 suck
+        default             => "amanda",   # FreeBSD >= 8.2 uses amanda group
+      }
       $groups               = [ "operator" ]
       $clientpackage        = "misc/amanda-client"
       $serverpackage        = "misc/amanda-server"
