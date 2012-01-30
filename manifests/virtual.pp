@@ -9,7 +9,7 @@ class amanda::virtual {
   }
 
   @user {
-    "${amanda::params::user}":
+    $amanda::params::user:
       uid     => $amanda::params::uid,
       gid     => $amanda::params::group,
       home    => $amanda::params::homedir,
@@ -22,6 +22,7 @@ class amanda::virtual {
   File {
     owner   => $amanda::params::user,
     group   => $amanda::params::group,
+    require => User[$amanda::params::user],
   }
 
   @file {
