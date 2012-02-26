@@ -1,13 +1,14 @@
 class amanda::server (
-  $configs       = [],
   $confdir       = "/etc/amanda",
-  $dirmode       = "755",
-  $filemode      = "644",
-  $managedirs    = "true",
+  $configs       = [],
   $confsrcmodule = "amanda",
   $confsrcroot   = undef,
+  $dirmode       = "755",
+  $filemode      = "644",
+  $group         = undef,
+  $managedirs    = "true",
   $owner         = undef,
-  $group         = undef
+  $xinetd        = "true"
 ) {
   include amanda
   include amanda::params
@@ -25,12 +26,6 @@ class amanda::server (
     $use_group = $amanda::params::group
   }
 
-  if $amanda::params::genericpackage {
-    realize(Package["amanda"])
-  } else {
-    realize(Package["amanda/server"])
-  }
-
   if $managedirs == "true" {
     file {
       $confdir:
@@ -39,6 +34,28 @@ class amanda::server (
         group  => $use_group,
         mode   => $dirmode;
     }
+  }
+
+  if $amanda::params::genericpackage {
+    realize(Package["amanda"])
+  } else {
+    realize(Package["amanda/server"])
+  }
+
+  # for solaris, which does not use xinetd, we don't manage a superserver.
+  if ($xinetd == "true" and $operatingsystem != "Solaris") {
+    realize(
+      Xinetd::Service["amanda_indexd"],
+      Xinetd::Service["amanda_taped"],
+      Xinetd::Service["amanda_tcp"],
+      Xinetd::Service["amanda_udp"],
+    )
+  }
+
+  amanda::define::amandahosts {
+    "amanda::server::server_root@localhost":
+      content => "localhost root amindexd amidxtaped\n",
+      order   => "10";
   }
 
   amanda::define::config {
@@ -52,4 +69,5 @@ class amanda::server (
       filemode       => $filemode,
       dirmode        => $dirmode;
   }
+
 }
