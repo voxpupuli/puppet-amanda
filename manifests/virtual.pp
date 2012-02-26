@@ -1,4 +1,5 @@
 class amanda::virtual {
+  include concat::setup
   include amanda::params
 
   case $operatingsystem {
@@ -8,10 +9,11 @@ class amanda::virtual {
   }
 
   @user {
-    "${amanda::params::user}":
+    $amanda::params::user:
       uid     => $amanda::params::uid,
       gid     => $amanda::params::group,
       home    => $amanda::params::homedir,
+      shell   => $amanda::params::shell,
       groups  => $amanda::params::groups,
       comment => "Amanda backup user",
       tag     => "amanda_common";
@@ -20,6 +22,7 @@ class amanda::virtual {
   File {
     owner   => $amanda::params::user,
     group   => $amanda::params::group,
+    require => User[$amanda::params::user],
   }
 
   @file {
@@ -43,31 +46,34 @@ class amanda::virtual {
       mode   => "700",
   }
 
-  Package {
-    ensure => present,
-    before => [
-      File["/etc/dumpdates"],
-      File["${amanda::params::homedir}"],
-      File["${amanda::params::homedir}/.ssh"],
-      File["${amanda::params::homedir}/.ssh/config"],
-      File["${amanda::params::homedir}/.ssh/authorized_keys"],
-      File[$amanda::params::amandadirectories],
-      File[$amanda::params::homedir],
-      User[$amanda::params::user],
-    ]
-  }
+  ##
+  # This variable is used because parameter defaults don't seem to descend
+  # into if blocks.
+  $packagebefore = [
+    File["/etc/dumpdates"],
+    File["${amanda::params::homedir}"],
+    File["${amanda::params::homedir}/.ssh"],
+    File["${amanda::params::homedir}/.ssh/config"],
+    File["${amanda::params::homedir}/.ssh/authorized_keys"],
+    File[$amanda::params::amandadirectories],
+    File[$amanda::params::homedir],
+    User[$amanda::params::user],
+  ]
 
   if $amanda::params::genericpackage {
     @package {
       "amanda":
-        name   => $amanda::params::genericpackage;
+        name   => $amanda::params::genericpackage,
+        before => $packagebefore;
     }
   } else {
     @package {
       "amanda/client":
-        name   => $amanda::params::clientpackage;
+        name   => $amanda::params::clientpackage,
+        before => $packagebefore;
       "amanda/server":
-        name   => $amanda::params::serverpackage;
+        name   => $amanda::params::serverpackage,
+        before => $packagebefore;
     }
   }
 
@@ -78,6 +84,69 @@ class amanda::virtual {
       type    => $amanda::params::defaultkeytype,
       options => $amanda::params::defaultkeyoptions,
       require => File["${amanda::params::homedir}/.ssh/authorized_keys"];
+  }
+
+  @concat {
+    "${amanda::params::homedir}/.amandahosts":
+      owner   => $amanda::params::user,
+      group   => $amanda::params::group,
+      mode    => "600",
+      require => File[$amanda::params::homedir],
+      gnu     => $operatingsystem ? {
+        "Solaris" => false,
+        default   => true,
+      };
+  }
+
+  Xinetd::Service {
+    require => [
+      User[$amanda::params::user],
+      $amanda::params::genericpackage ? {
+        undef   => Package["amanda/client"],
+        default => Package["amanda"],
+      },
+    ],
+  }
+
+  @xinetd::service {
+    "amanda_udp":
+      servicename => "amanda",
+      socket_type => "dgram",
+      protocol    => "udp",
+      port        => "10080",
+      user        => $amanda::params::user,
+      group       => $amanda::params::group,
+      server      => $amanda::params::amandadpath,
+      server_args => "-auth=bsd ${amanda::params::clientdaemons}";
+    "amanda_tcp":
+      servicename => "amanda",
+      socket_type => "stream",
+      protocol    => "tcp",
+      port        => "10080",
+      user        => $amanda::params::user,
+      group       => $amanda::params::group,
+      server      => $amanda::params::amandadpath,
+      server_args => "-auth=bsdtcp ${amanda::params::clientdaemons}";
+    "amanda_indexd":
+      servicename => "amandaidx",
+      socket_type => "stream",
+      protocol    => "tcp",
+      wait        => "no",
+      port        => "10082",
+      user        => $amanda::params::user,
+      group       => $amanda::params::group,
+      server      => $amanda::params::amandaidxpath,
+      server_args => "-auth=bsdtcp ${amanda::params::serverdaemons}";
+    "amanda_taped":
+      servicename => "amidxtape",
+      socket_type => "stream",
+      protocol    => "tcp",
+      wait        => "no",
+      port        => "10083",
+      user        => $amanda::params::user,
+      group       => $amanda::params::group,
+      server      => $amanda::params::amandatapedpath,
+      server_args => "-auth=bsdtcp ${amanda::params::serverdaemons}";
   }
 
 }

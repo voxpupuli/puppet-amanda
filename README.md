@@ -1,7 +1,11 @@
-Module: pdxcat-amanda
+# Amanda module for Puppet
 
-Example usage:
+## Description
+Provides amanda server and client configuration
 
+## Usage:
+
+<pre>
   node "backup.cat.pdx.edu" {
     class { "amanda::server":
       configs => [ "rolling", "archive" ],
@@ -15,9 +19,10 @@ Example usage:
       server => "backup.cat.pdx.edu",
     }
   }
+</pre>
 
-More control/specificity:
-
+### More control/specificity:
+<pre>
   node "backup.cat.pdx.edu" {
     file { "/etc/amanda":
       ensure => directory;
@@ -28,6 +33,7 @@ More control/specificity:
       confdir => "/etc/amanda";
     }
   }
+</pre>
 
 Then place your config files in the "files" directory of the module:
 
@@ -38,6 +44,7 @@ specify in the amanda::config resource. If you want to keep your config
 files in a seperate puppet module, then specify the module when you
 declare the server class:
 
+<pre>
   node "backup.cat.pdx.edu" {
     class { "amanda::server":
       configs       => [ "rolling", "archive" ],
@@ -48,6 +55,7 @@ declare the server class:
       confsrcroot   => "amanda",
     }
   }
+</pre>
 
 In this example, config files will be pulled from:
 
