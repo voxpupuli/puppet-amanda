@@ -49,7 +49,7 @@ class amanda::virtual {
   ##
   # This variable is used because parameter defaults don't seem to descend
   # into if blocks.
-  $packagebefore = [
+  $post_package = [
     File["/etc/dumpdates"],
     File["${amanda::params::homedir}"],
     File["${amanda::params::homedir}/.ssh"],
@@ -64,16 +64,16 @@ class amanda::virtual {
     @package {
       "amanda":
         name   => $amanda::params::genericpackage,
-        before => $packagebefore;
+        before => $post_package;
     }
   } else {
     @package {
       "amanda/client":
         name   => $amanda::params::clientpackage,
-        before => $packagebefore;
+        before => $post_package;
       "amanda/server":
         name   => $amanda::params::serverpackage,
-        before => $packagebefore;
+        before => $post_package;
     }
   }
 
@@ -101,10 +101,7 @@ class amanda::virtual {
   Xinetd::Service {
     require => [
       User[$amanda::params::user],
-      $amanda::params::genericpackage ? {
-        undef   => Package["amanda/client"],
-        default => Package["amanda"],
-      },
+      $post_package,
     ],
   }
 
