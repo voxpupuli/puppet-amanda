@@ -15,7 +15,7 @@ class amanda::virtual {
       home    => $amanda::params::homedir,
       shell   => $amanda::params::shell,
       groups  => $amanda::params::groups,
-      comment => "Amanda backup user",
+      comment => $amanda::params::comment,
       tag     => "amanda_common";
   }
 
