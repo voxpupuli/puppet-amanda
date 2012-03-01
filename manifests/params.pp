@@ -31,6 +31,7 @@ class amanda::params {
       $homedir              = "/var/lib/amanda"
       $uid                  = "59500"
       $user                 = "amandabackup"
+      $comment              = "Amanda backup user"
       $shell                = "/bin/sh"
       $group                = "disk"
       $groups               = [ "backup", "tape" ]
@@ -51,6 +52,7 @@ class amanda::params {
       $homedir              = "/var/lib/amanda"
       $uid                  = "59500"
       $user                 = "amanda"
+      $comment              = "Amanda backup user"
       $shell                = "/bin/sh"
       $group                = "sys"
       $groups               = [ ]
@@ -68,6 +70,7 @@ class amanda::params {
       $homedir              = "/var/db/amanda"
       $uid                  = "59500"
       $user                 = "amanda"
+      $comment              = "Amanda backup user"
       $shell                = "/bin/sh"
       $group                = $operatingsystemrelease ? {
         /^[4567]|^8\.[10]/  => "operator", # FreeBSD versions < 8.2 suck
@@ -87,10 +90,28 @@ class amanda::params {
         "/usr/local/var/amanda/gnutar-lists",
       ]
     }
+    "OpenSuSE", "SLES", "SLED", "SuSE":  {
+      $homedir              = "/var/lib/amanda"
+      $uid                  = "37"
+      $user                 = "amanda"
+      $comment              = "Amanda admin"
+      $group                = "amanda"
+      $groups               = [ "tape" ]
+      $genericpackage        = "amanda"
+      $serverprovidesclient = true  # there's only one package on suse
+      $amandadpath          = "/usr/lib/amanda/amandad"
+      $amandaidxpath        = "/usr/lib/amanda/amindexd"
+      $amandatapedpath      = "/usr/lib/amanda/amidxtaped"
+      $amandadirectories    = [
+        "/tmp/amanda",
+        "/tmp/amanda/amandad",
+      ]
+    }
     default:   {
       $homedir              = "/var/lib/amanda"
       $uid                  = "59500"
       $user                 = "amandabackup"
+      $comment              = "Amanda backup user"
       $shell                = "/bin/sh"
       $group                = "backup"
       $groups               = [ ]
