@@ -8,8 +8,7 @@ class amanda::virtual::solaris inherits amanda::virtual {
   }
 
   Package["amanda"] {
-    provider  => blastwave,
-    adminfile => $solaris::pkgget::adminfile,
+    provider  => pkgutil,
   }
 
 }
