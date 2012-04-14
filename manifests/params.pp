@@ -46,6 +46,7 @@ class amanda::params {
         "/tmp/amanda/amandad",
         "/var/amanda",
         "/var/amanda/gnutar-lists",
+        "/var/log/amanda",
       ]
     }
     "Solaris": {
