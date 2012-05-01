@@ -107,43 +107,43 @@ class amanda::virtual {
 
   @xinetd::service {
     "amanda_udp":
-      servicename => "amanda",
-      socket_type => "dgram",
-      protocol    => "udp",
-      port        => "10080",
-      user        => $amanda::params::user,
-      group       => $amanda::params::group,
-      server      => $amanda::params::amandadpath,
-      server_args => "-auth=bsd ${amanda::params::clientdaemons}";
+      service_name => "amanda",
+      socket_type  => "dgram",
+      protocol     => "udp",
+      port         => "10080",
+      user         => $amanda::params::user,
+      group        => $amanda::params::group,
+      server       => $amanda::params::amandadpath,
+      server_args  => "-auth=bsd ${amanda::params::clientdaemons}";
     "amanda_tcp":
-      servicename => "amanda",
-      socket_type => "stream",
-      protocol    => "tcp",
-      port        => "10080",
-      user        => $amanda::params::user,
-      group       => $amanda::params::group,
-      server      => $amanda::params::amandadpath,
-      server_args => "-auth=bsdtcp ${amanda::params::clientdaemons}";
+      service_name => "amanda",
+      socket_type  => "stream",
+      protocol     => "tcp",
+      port         => "10080",
+      user         => $amanda::params::user,
+      group        => $amanda::params::group,
+      server       => $amanda::params::amandadpath,
+      server_args  => "-auth=bsdtcp ${amanda::params::clientdaemons}";
     "amanda_indexd":
-      servicename => "amandaidx",
-      socket_type => "stream",
-      protocol    => "tcp",
-      wait        => "no",
-      port        => "10082",
-      user        => $amanda::params::user,
-      group       => $amanda::params::group,
-      server      => $amanda::params::amandaidxpath,
-      server_args => "-auth=bsdtcp ${amanda::params::serverdaemons}";
+      service_name => "amandaidx",
+      socket_type  => "stream",
+      protocol     => "tcp",
+      wait         => "no",
+      port         => "10082",
+      user         => $amanda::params::user,
+      group        => $amanda::params::group,
+      server       => $amanda::params::amandaidxpath,
+      server_args  => "-auth=bsdtcp ${amanda::params::serverdaemons}";
     "amanda_taped":
-      servicename => "amidxtape",
-      socket_type => "stream",
-      protocol    => "tcp",
-      wait        => "no",
-      port        => "10083",
-      user        => $amanda::params::user,
-      group       => $amanda::params::group,
-      server      => $amanda::params::amandatapedpath,
-      server_args => "-auth=bsdtcp ${amanda::params::serverdaemons}";
+      service_name => "amidxtape",
+      socket_type  => "stream",
+      protocol     => "tcp",
+      wait         => "no",
+      port         => "10083",
+      user         => $amanda::params::user,
+      group        => $amanda::params::group,
+      server       => $amanda::params::amandatapedpath,
+      server_args  => "-auth=bsdtcp ${amanda::params::serverdaemons}";
   }
 
 }
