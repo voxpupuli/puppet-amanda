@@ -8,5 +8,5 @@ description 'Amanda Module for Puppet'
 project_page 'https://github.com/pdxcat/puppet-module-amanda'
 
 ## Add dependencies, if any:
-dependency 'ripienaar/concat', '>= 20100507'
+dependency 'ripienaar/concat', '>= 0.1.0'
 dependency 'pdxcat/xinetd', '>= 0.0.1'
