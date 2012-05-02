@@ -1,0 +1,47 @@
+0.0.3 - pdxcat/amanda - 2012/05/02
+
+  ******* Update CHANGELOG for 0.0.3 release
+  9349442 Update xinetd resources (changed param name)
+  e82cdbc Add version number of released concat module
+
+0.0.2 - pdxcat/amanda - 2012/04/26
+
+  0001044 Reverting "version number as date"
+  fffdec8 The log directory should be created on debian
+  13402ed Update Modulefile for release to moduleforge
+  9f4e5b2 Switch from blastwave provider to pkgutil
+  e6335f6 Merge pull request #3 from deadpoint/master
+  285a26f Add support for SuSE distributions
+  cfe129e Fix dependency problem with xinetd client/server
+  ebe6048 Merge pull request #2 from blkperl/test_blkperl_release2
+  5c001f6 Fixing typo in LICENSE file
+  44a275d Merge pull request #1 from blkperl/test_blkperl_release
+  28b003f Adding an Apache LICENSE file and modulefile
+  08f79bf Updating group params for freebsd < 8.2
+  07f9117 Fixing amanda package "before" param
+  f07500a Adding user dependency to file resources
+  5067a01 Adding user shell definition
+  9ae41b5 Tweaking config so concat works on solaris
+  b160b6e Seperating out ssh_authorized_key into define
+  2bd73f2 Adding a boolean xinetd parameter
+  8e158df Fixing -auth tyop/bug
+  49b819d Cleaning up the concact stuff in amanda module
+  2086878 Adding concat management of .amandahosts
+  2924c8e Adding amanda index xinetd entries
+
+0.0.1 - pdxcat/amanda - 2011/12/15
+
+  40b896f Adding the amanda user on ubuntu to tape group
+  6a8a494 Fixing $genericpackage bug
+  6db6cdb README update, since it needed it
+  1d549f5 Sanitizing defaults
+  b9f5f40 Adding example configs
+  4404d82 Simplifying amanda_config_files function
+  919681b fixing array index bug
+  486306d Bug fixes
+  1f49e18 Use files/server/ as root instead of files/
+  a8b96cf Updating README
+  f341eb7 Updating readme
+  fa085e9 diversifying amanda_config_files function
+  fa1b634 modifying treatment of complexity in amanda module
+  3126aa9 Adding amanda module from production to theverse
