@@ -1,73 +1,66 @@
 class amanda::server (
-  $confdir       = "/etc/amanda",
-  $configs       = [],
-  $confsrcmodule = "amanda",
-  $confsrcroot   = undef,
-  $dirmode       = "755",
-  $filemode      = "644",
-  $group         = undef,
-  $managedirs    = "true",
-  $owner         = undef,
-  $xinetd        = "true"
+  $configs                  = [],
+  $configs_directory        = undef,
+  $manage_configs_directory = true,
+  $configs_source           = 'amanda',
+  $directory_mode           = '755',
+  $file_mode                = '644',
+  $group                    = undef,
+  $owner                    = undef,
+  $xinetd                   = true
 ) {
   include amanda
   include amanda::params
   include amanda::virtual::server
 
-  if $owner {
-    $use_owner = $owner
+  if $owner != undef {
+    $owner_real = $owner
   } else {
-    $use_owner = $amanda::params::user
+    $owner_real = $amanda::params::user
   }
 
-  if $group {
-    $use_group = $group
+  if $group != undef {
+    $group_real = $group
   } else {
-    $use_group = $amanda::params::group
+    $group_real = $amanda::params::group
   }
 
-  if $managedirs == "true" {
-    file {
-      $confdir:
-        ensure => directory,
-        owner  => $use_owner,
-        group  => $use_group,
-        mode   => $dirmode;
-    }
-  }
-
-  if $amanda::params::genericpackage {
-    realize(Package["amanda"])
+  if $configs_directory != undef {
+    $configs_directory_real = $configs_directory
   } else {
-    realize(Package["amanda/server"])
+    $configs_directory_real = $amanda::params::configs_directory
   }
 
-  # for solaris, which does not use xinetd, we don't manage a superserver.
-  if ($xinetd == "true" and $operatingsystem != "Solaris") {
+  if $amanda::params::generic_package {
+    realize(Package['amanda'])
+  } else {
+    realize(Package['amanda/server'])
+  }
+
+  # for systems that don't use xinetd, don't use xinetd
+  if (("x$xinetd" == 'xtrue') and !$amanda::params::xinetd_unsupported) {
     realize(
-      Xinetd::Service["amanda_indexd"],
-      Xinetd::Service["amanda_taped"],
-      Xinetd::Service["amanda_tcp"],
-      Xinetd::Service["amanda_udp"],
+      Xinetd::Service['amanda_indexd'],
+      Xinetd::Service['amanda_taped'],
+      Xinetd::Service['amanda_tcp'],
+      Xinetd::Service['amanda_udp'],
     )
   }
 
-  amanda::define::amandahosts {
-    "amanda::server::server_root@localhost":
-      content => "localhost root amindexd amidxtaped\n",
-      order   => "10";
+  amanda::amandahosts { 'amanda::server::server_root@localhost':
+    content => "localhost root amindexd amidxtaped",
+    order   => '10';
   }
 
-  amanda::define::config {
-    $configs:
-      ensure         => present,
-      confdir        => $confdir,
-      confsrcmodule  => $confsrcmodule,
-      confsrcroot    => $confsrcroot,
-      owner          => $use_owner,
-      group          => $use_group,
-      filemode       => $filemode,
-      dirmode        => $dirmode;
+  amanda::config { $configs:
+    ensure                   => present,
+    manage_configs_directory => $manage_configs_directory,
+    configs_directory        => $configs_directory,
+    configs_source           => $configs_source,
+    owner                    => $owner_real,
+    group                    => $group_real,
+    file_mode                => $file_mode,
+    directory_mode           => $directory_mode,
   }
 
 }

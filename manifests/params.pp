@@ -12,7 +12,7 @@
 #            type: string
 #     description: package to install when realizing amanda::server
 #
-#        variable: $serverprovidesclient
+#        variable: $server_provides_client
 #            type: boolean
 #     description: set to true if it is the case that the server
 #                  package conflicts with the client package.
@@ -26,109 +26,115 @@
 #
 class amanda::params {
 
-  case $operatingsystem {
-    "Ubuntu":  {
-      $homedir              = "/var/lib/amanda"
-      $uid                  = "59500"
-      $user                 = "amandabackup"
-      $comment              = "Amanda backup user"
-      $shell                = "/bin/sh"
-      $group                = "disk"
-      $groups               = [ "backup", "tape" ]
-      $clientpackage        = "amanda-backup-client"
-      $serverpackage        = "amanda-backup-server"
-      $serverprovidesclient = true  # since we're using zmanda packages
-      $amandadpath          = "/usr/libexec/amanda/amandad"
-      $amandaidxpath        = "/usr/libexec/amanda/amindexd"
-      $amandatapedpath      = "/usr/libexec/amanda/amidxtaped"
-      $amandadirectories    = [
-        "/tmp/amanda",
-        "/tmp/amanda/amandad",
-        "/var/amanda",
-        "/var/amanda/gnutar-lists",
-        "/var/log/amanda",
+  case $osfamily {
+    'Debian':  {
+      $configs_directory      = '/etc/amanda'
+      $homedir                = '/var/lib/amanda'
+      $uid                    = '59500'
+      $user                   = 'amandabackup'
+      $comment                = 'Amanda backup user'
+      $shell                  = '/bin/sh'
+      $group                  = 'disk'
+      $groups                 = [ 'backup', 'tape' ]
+      $client_package         = 'amanda-backup-client'
+      $server_package         = 'amanda-backup-server'
+      $server_provides_client = true  # since we're using zmanda packages
+      $amandad_path           = '/usr/libexec/amanda/amandad'
+      $amandaidx_path         = '/usr/libexec/amanda/amindexd'
+      $amandataped_path       = '/usr/libexec/amanda/amidxtaped'
+      $amanda_directories     = [
+        '/tmp/amanda',
+        '/tmp/amanda/amandad',
+        '/var/amanda',
+        '/var/amanda/gnutar-lists',
+        '/var/log/amanda',
       ]
     }
-    "Solaris": {
-      $homedir              = "/var/lib/amanda"
-      $uid                  = "59500"
-      $user                 = "amanda"
-      $comment              = "Amanda backup user"
-      $shell                = "/bin/sh"
-      $group                = "sys"
-      $groups               = [ ]
-      $genericpackage       = "amanda"
-      $serverprovidesclient = true # there's only one package for solaris
-      $amandadpath          = "/opt/csw/libexec/amanda/amandad"
-      $amandaidxpath        = "/opt/csw/libexec/amanda/amindexd"
-      $amandatapedpath      = "/opt/csw/libexec/amanda/amidxtaped"
-      $amandadirectories    = [
-        "/tmp/amanda",
-        "/tmp/amanda/amandad",
+    'Solaris': {
+      $configs_directory      = '/etc/amanda'
+      $homedir                = '/var/lib/amanda'
+      $uid                    = '59500'
+      $user                   = 'amanda'
+      $comment                = 'Amanda backup user'
+      $shell                  = '/bin/sh'
+      $group                  = 'sys'
+      $groups                 = [ ]
+      $xinetd_unsupported     = true
+      $generic_package        = 'amanda'
+      $server_provides_client = true # there's only one package for solaris
+      $amandad_path           = '/opt/csw/libexec/amanda/amandad'
+      $amandaidx_path         = '/opt/csw/libexec/amanda/amindexd'
+      $amandataped_path       = '/opt/csw/libexec/amanda/amidxtaped'
+      $amanda_directories     = [
+        '/tmp/amanda',
+        '/tmp/amanda/amandad',
       ]
     }
-    "FreeBSD": {
-      $homedir              = "/var/db/amanda"
-      $uid                  = "59500"
-      $user                 = "amanda"
-      $comment              = "Amanda backup user"
-      $shell                = "/bin/sh"
-      $group                = $operatingsystemrelease ? {
-        /^[4567]|^8\.[10]/  => "operator", # FreeBSD versions < 8.2 suck
-        default             => "amanda",   # FreeBSD >= 8.2 uses amanda group
+    'FreeBSD': {
+      $configs_directory      = '/usr/local/etc/amanda'
+      $homedir                = '/var/db/amanda'
+      $uid                    = '59500'
+      $user                   = 'amanda'
+      $comment                = 'Amanda backup user'
+      $shell                  = '/bin/sh'
+      $group                  = $operatingsystemrelease ? {
+        /^[4567]|^8\.[10]/ => 'operator', # FreeBSD versions < 8.2 suck
+        default            => 'amanda',   # FreeBSD >= 8.2 uses amanda group
       }
-      $groups               = [ "operator" ]
-      $clientpackage        = "misc/amanda-client"
-      $serverpackage        = "misc/amanda-server"
-      $serverprovidesclient = false # idunno
-      $amandadpath          = "/usr/local/libexec/amanda/amandad"
-      $amandaidxpath        = "/usr/local/libexec/amanda/amindexd"
-      $amandatapedpath      = "/usr/local/libexec/amanda/amidxtaped"
-      $amandadirectories    = [
-        "/tmp/amanda",
-        "/tmp/amanda/amandad",
-        "/usr/local/var/amanda",
-        "/usr/local/var/amanda/gnutar-lists",
+      $groups                 = [ 'operator' ]
+      $client_package         = 'misc/amanda-client'
+      $server_package         = 'misc/amanda-server'
+      $server_provides_client = false # idunno
+      $amandad_path           = '/usr/local/libexec/amanda/amandad'
+      $amandaidx_path         = '/usr/local/libexec/amanda/amindexd'
+      $amandataped_path       = '/usr/local/libexec/amanda/amidxtaped'
+      $amanda_directories     = [
+        '/tmp/amanda',
+        '/tmp/amanda/amandad',
+        '/usr/local/var/amanda',
+        '/usr/local/var/amanda/gnutar-lists',
       ]
     }
-    "OpenSuSE", "SLES", "SLED", "SuSE":  {
-      $homedir              = "/var/lib/amanda"
-      $uid                  = "37"
-      $user                 = "amanda"
-      $comment              = "Amanda admin"
-      $group                = "amanda"
-      $groups               = [ "tape" ]
-      $genericpackage        = "amanda"
-      $serverprovidesclient = true  # there's only one package on suse
-      $amandadpath          = "/usr/lib/amanda/amandad"
-      $amandaidxpath        = "/usr/lib/amanda/amindexd"
-      $amandatapedpath      = "/usr/lib/amanda/amidxtaped"
-      $amandadirectories    = [
-        "/tmp/amanda",
-        "/tmp/amanda/amandad",
+    'Suse':  {
+      $homedir                = '/var/lib/amanda'
+      $uid                    = '37'
+      $user                   = 'amanda'
+      $comment                = 'Amanda admin'
+      $group                  = 'amanda'
+      $groups                 = [ 'tape' ]
+      $generic_package        = 'amanda'
+      $server_provides_client = true  # there's only one package on suse
+      $amandad_path           = '/usr/lib/amanda/amandad'
+      $amandaidx_path         = '/usr/lib/amanda/amindexd'
+      $amandataped_path       = '/usr/lib/amanda/amidxtaped'
+      $amanda_directories     = [
+        '/tmp/amanda',
+        '/tmp/amanda/amandad',
       ]
     }
     default:   {
-      $homedir              = "/var/lib/amanda"
-      $uid                  = "59500"
-      $user                 = "amandabackup"
-      $comment              = "Amanda backup user"
-      $shell                = "/bin/sh"
-      $group                = "backup"
-      $groups               = [ ]
-      $clientpackage        = "amanda-client"
-      $serverpackage        = "amanda-server"
-      $serverprovidesclient = false # idunno
-      $amandadpath          = "/usr/libexec/amanda/amandad"
-      $amandaidxpath        = "/usr/libexec/amanda/amindexd"
-      $amandatapedpath      = "/usr/libexec/amanda/amidxtaped"
-      $amandadirectories    = [
-        "/tmp/amanda",
-        "/tmp/amanda/amandad",
+      $configs_directory      = '/etc/amanda'
+      $homedir                = '/var/lib/amanda'
+      $uid                    = '59500'
+      $user                   = 'amandabackup'
+      $comment                = 'Amanda backup user'
+      $shell                  = '/bin/sh'
+      $group                  = 'backup'
+      $groups                 = [ ]
+      $xinetd_unsupported     = true
+      $client_package         = 'amanda-client'
+      $server_package         = 'amanda-server'
+      $server_provides_client = false # idunno
+      $amandad_path           = '/usr/libexec/amanda/amandad'
+      $amandaidx_path         = '/usr/libexec/amanda/amindexd'
+      $amandataped_path       = '/usr/libexec/amanda/amidxtaped'
+      $amanda_directories     = [
+        '/tmp/amanda',
+        '/tmp/amanda/amandad',
       ]
     }
   }
 
-  $serverdaemons = "amdump amindexd amidxtaped"
-  $clientdaemons = "amdump"
+  $server_daemons = 'amdump amindexd amidxtaped'
+  $client_daemons = 'amdump'
 }

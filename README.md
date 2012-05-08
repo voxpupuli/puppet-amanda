@@ -1,68 +1,127 @@
 # Amanda module for Puppet
 
 ## Description
-Provides amanda server and client configuration
 
-## Usage:
+Provides Amanda Network Backup server and client configuration through Puppet
 
-<pre>
-  node "backup.cat.pdx.edu" {
-    class { "amanda::server":
-      configs => [ "rolling", "archive" ],
-      owner   => "amanda",
-      group   => "amanda",
-    }
-  }
+## Usage
 
-  node "client.cat.pdx.edu" {
-    class { "amanda::client":
-      server => "backup.cat.pdx.edu",
-    }
-  }
-</pre>
+The amanda module allows specifying parameterized classes that will do most of
+the heavy lifting in a single definition (relying on sane defaults), or for
+more custom configuration the utility defines can be used directly. What
+follows is a minimal-effort configuration that trusts the module to figure out
+the details.
 
-### More control/specificity:
-<pre>
-  node "backup.cat.pdx.edu" {
-    file { "/etc/amanda":
-      ensure => directory;
+    node 'backup.cat.pdx.edu' {
+      class { 'amanda::server':
+        configs        => [ 'daily', 'archive' ],
+        configs_source => 'modules/data/amanda',
+      }
     }
 
-    amanda::config { "rolling":
-      ensure  => "present",
-      confdir => "/etc/amanda";
+    node 'client.cat.pdx.edu' {
+      class { 'amanda::client':
+        server => 'backup.cat.pdx.edu',
+      }
     }
-  }
-</pre>
 
-Then place your config files in the "files" directory of the module:
+Of note is the `configs_source` parameter. While the amanda module will
+install and configure server and client machines, it does not yet attempt to build
+amanda configs using puppet code. Rather, that legwork is still left up to the
+administrator, and the module will only ensure that the files which comprise
+the config are present on the server.
 
-  1. master: $modulepath/amanda/files/server/<namevar>/*
+Additional parameters are available for both the `amanda::server` and
+`amanda::client` classes which are not documented here. At present the only
+way to look up how to use them is to read the source.
 
-The contents of the <namevar> directory will be synced to the confdir you
-specify in the amanda::config resource. If you want to keep your config
-files in a seperate puppet module, then specify the module when you
-declare the server class:
+## How Configs Work
 
-<pre>
-  node "backup.cat.pdx.edu" {
-    class { "amanda::server":
-      configs       => [ "rolling", "archive" ],
-      confdir       => "/etc/amanda",
-      owner         => "amanda",
-      group         => "amanda",
-      confsrcmodule => "secrets",
-      confsrcroot   => "amanda",
+Use the following Puppet DSL code to ensure the "daily" and "archive" configs
+are created on an amanda backup server.
+
+    node 'backup.cat.pdx.edu' {
+      file { '/etc/amanda':
+        ensure => directory;
+      }
+
+      amanda::config { 'daily':
+        ensure            => present,
+        configs_source    => 'modules/data/amanda',
+        configs_directory => '/etc/amanda',
+      }
+      amanda::config { 'archive':
+        ensure            => present,
+        configs_source    => 'modules/data/amanda',
+        configs_directory => '/etc/amanda',
+      }
     }
-  }
-</pre>
 
-In this example, config files will be pulled from:
+Then place your config files in the "files" directory of the module specified
+with the `configs_source` parameter. For the code above, files that make up
+the "archive" and "daily" amanda configs should be placed in the `data` module
+as per this example:
 
-  1. master: $modulepath/secrets/files/amanda/rolling/*
-  2. master: $modulepath/secrets/files/amanda/archive/*
+    data
+    |-- files
+    |   `-- amanda
+    |       |-- daily
+    |       |   |-- amanda.conf
+    |       |   |-- chg-multi.conf
+    |       |   |-- disklist
+    |       |   `-- label-templates
+    |       |       |-- 3hole.ps
+    |       |       |-- 8.5x11.ps
+    |       |       |-- DIN-A4.ps
+    |       |       |-- DLT-A4.ps
+    |       |       |-- DLT.ps
+    |       |       |-- EXB-8500.ps
+    |       |       |-- HP-DAT.ps
+    |       |       `-- tapetypes.conf
+    |       `-- archive
+    |           |-- amanda.conf
+    |           |-- chg-scsi.conf
+    |           |-- disklist
+    |           `-- dumptypes.conf
+    |-- LICENSE
+    `-- README
 
-And synced to:
+The contents of the `config` directory ("daily" or "archive") will be synced
+as file resources to the location specified with the `configs_directory`
+specified in the amanda::config resource. For the example above, the files
+will be synced to the agent system as:
 
-  1. agent: /etc/amanda/rolling/*
-  2. agent: /etc/amanda/archive/*
+    /
+    |-- etc
+    |   |-- amanda
+    |   |   |-- daily
+    .   |   |   |-- amanda.conf
+    .   .   |   |-- chg-multi.conf
+    .   .   |   |-- disklist
+        .   |   `-- label-templates
+            |       |-- 3hole.ps
+            |       |-- 8.5x11.ps
+            |       |-- DIN-A4.ps
+            |       |-- DLT-A4.ps
+            |       |-- DLT.ps
+            |       |-- EXB-8500.ps
+            |       |-- HP-DAT.ps
+            |       `-- tapetypes.conf
+            `-- archive
+                |-- amanda.conf
+                |-- chg-scsi.conf
+                |-- disklist
+                `-- dumptypes.conf
+
+## Known Issues
+
+It doesn't have any kind of storeconfigs magic that could be used to
+dynamically generate the disklist file. That would be pretty cool. Totally
+haven't done it yet.
+
+## Contributors
+
+Darin Perusich <darin@darins.net>
+Jon Harker <jesusaurus@cat.pdx.edu>
+Reid Vandewiele <marut@cat.pdx.edu>
+William Van Hevelingen <blkperl@cat.pdx.edu>

@@ -1,36 +1,35 @@
 class amanda::client (
-  $remoteuser = undef,
-  $server     = "backup.$domain",
-  $xinetd     = "true"
+  $remote_user = undef,
+  $server      = "backup.$domain",
+  $xinetd      = true
 ) {
   include amanda
   include amanda::params
   include concat::setup
 
-  if $remoteuser {
-    $use_remoteuser = $remoteuser
+  if $remote_user != undef {
+    $remote_user_real = $remote_user
   } else {
-    $use_remoteuser = $amanda::params::user
+    $remote_user_real = $amanda::params::user
   }
 
-  # for solaris, which does not use xinetd, we don't manage a superserver.
-  if ($xinetd == "true" and $operatingsystem != "Solaris") {
+  # for systems that don't use xinetd, don't use xinetd
+  if (("x$xinetd" == 'xtrue') and !$amanda::params::xinetd_unsupported) {
     realize(
-      Xinetd::Service["amanda_tcp"],
-      Xinetd::Service["amanda_udp"],
+      Xinetd::Service['amanda_tcp'],
+      Xinetd::Service['amanda_udp'],
     )
   }
 
-  if $amanda::params::genericpackage {
-    realize(Package["amanda"])
+  if $amanda::params::generic_package {
+    realize(Package['amanda'])
   } else {
-    realize(Package["amanda/client"])
+    realize(Package['amanda/client'])
   }
 
-  amanda::define::amandahosts {
-    "amanda::client::amdump_${use_remoteuser}@${server}":
-      content => "${server} ${use_remoteuser} amdump\n",
-      order   => "00";
+  amanda::amandahosts { "amanda::client::amdump_${remote_user_real}@${server}":
+    content => "${server} ${remote_user_real} amdump",
+    order   => '00';
   }
 
 }
