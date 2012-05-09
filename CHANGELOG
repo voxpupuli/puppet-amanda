@@ -1,6 +1,12 @@
+0.1.0 - pdxcat/amanda - 2012/05/09
+
+  ******* Update CHANGELOG for 0.1.0 release
+  229ce32 Switch Debian params from zmanda packages to dist
+  0883ee6 Massively refactor module, redo how configs work
+
 0.0.3 - pdxcat/amanda - 2012/05/02
 
-  ******* Update CHANGELOG for 0.0.3 release
+  1daec40 Update CHANGELOG for 0.0.3 release
   9349442 Update xinetd resources (changed param name)
   e82cdbc Add version number of released concat module
 
