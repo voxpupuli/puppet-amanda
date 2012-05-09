@@ -29,19 +29,19 @@ class amanda::params {
   case $osfamily {
     'Debian':  {
       $configs_directory      = '/etc/amanda'
-      $homedir                = '/var/lib/amanda'
-      $uid                    = '59500'
-      $user                   = 'amandabackup'
-      $comment                = 'Amanda backup user'
+      $homedir                = '/var/backups'
+      $uid                    = '34'
+      $user                   = 'backup'
+      $comment                = 'backup'
       $shell                  = '/bin/sh'
-      $group                  = 'disk'
-      $groups                 = [ 'backup', 'tape' ]
-      $client_package         = 'amanda-backup-client'
-      $server_package         = 'amanda-backup-server'
-      $server_provides_client = true  # since we're using zmanda packages
-      $amandad_path           = '/usr/libexec/amanda/amandad'
-      $amandaidx_path         = '/usr/libexec/amanda/amindexd'
-      $amandataped_path       = '/usr/libexec/amanda/amidxtaped'
+      $group                  = 'backup'
+      $groups                 = [ 'tape' ]
+      $client_package         = 'amanda-client'
+      $server_package         = 'amanda-server'
+      $server_provides_client = false
+      $amandad_path           = '/usr/lib/amanda/amandad'
+      $amandaidx_path         = '/usr/lib/amanda/amindexd'
+      $amandataped_path       = '/usr/lib/amanda/amidxtaped'
       $amanda_directories     = [
         '/tmp/amanda',
         '/tmp/amanda/amandad',
@@ -96,6 +96,7 @@ class amanda::params {
       ]
     }
     'Suse':  {
+      $configs_directory      = '/etc/amanda'
       $homedir                = '/var/lib/amanda'
       $uid                    = '37'
       $user                   = 'amanda'
