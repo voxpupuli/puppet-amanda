@@ -1,6 +1,6 @@
 class amanda::client (
   $remote_user = undef,
-  $server      = "backup.$domain",
+  $server      = "backup.$::domain",
   $xinetd      = true
 ) {
   include amanda

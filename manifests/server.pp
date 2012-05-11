@@ -48,7 +48,7 @@ class amanda::server (
   }
 
   amanda::amandahosts { 'amanda::server::server_root@localhost':
-    content => "localhost root amindexd amidxtaped",
+    content => 'localhost root amindexd amidxtaped',
     order   => '10';
   }
 

@@ -26,7 +26,7 @@
 #
 class amanda::params {
 
-  case $osfamily {
+  case $::osfamily {
     'Debian':  {
       $configs_directory      = '/etc/amanda'
       $homedir                = '/var/backups'
@@ -77,7 +77,7 @@ class amanda::params {
       $user                   = 'amanda'
       $comment                = 'Amanda backup user'
       $shell                  = '/bin/sh'
-      $group                  = $operatingsystemrelease ? {
+      $group                  = $::operatingsystemrelease ? {
         /^[4567]|^8\.[10]/ => 'operator', # FreeBSD versions < 8.2 suck
         default            => 'amanda',   # FreeBSD >= 8.2 uses amanda group
       }
