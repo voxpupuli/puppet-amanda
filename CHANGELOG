@@ -1,6 +1,12 @@
+0.1.1 - pdxcat/amanda - 2012/05/11
+
+  ******* Update CHANGELOG for 0.1.1 release
+  cb217bf Update README file
+  9c96e28 Clean up puppet-lint style errors
+
 0.1.0 - pdxcat/amanda - 2012/05/09
 
-  ******* Update CHANGELOG for 0.1.0 release
+  6146b82 Update CHANGELOG for 0.1.0 release
   229ce32 Switch Debian params from zmanda packages to dist
   0883ee6 Massively refactor module, redo how configs work
 
