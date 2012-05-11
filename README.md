@@ -113,11 +113,52 @@ will be synced to the agent system as:
                 |-- disklist
                 `-- dumptypes.conf
 
+## Additional Types
+
+Besides the primary classes amanda::server and amanda::client, three utility
+defines are included in the module.
+
+### Amanda::Amandahosts
+
+The amanda::amandahosts type manages the .amandahosts file, which controls
+access to amanda services. The important parameter to this resource is
+`content`, and the user must specify the full access line to include. For
+example,
+
+    amanda::amandahosts { 'replicator-amdump':
+      content => "replicator.cat.pdx.edu backup amdump",
+    }
+
+### Amanda::Config
+
+The amanda::config type synchronizes a directory of files in a given module to
+a client. A more detailed example is given in the preceding section.
+
+    amanda::config { 'daily':
+      ensure            => present,
+      configs_source    => 'modules/data/amanda',
+      configs_directory => '/etc/amanda',
+    }
+
+### Amanda::Ssh_authorized_key
+
+The amanda::ssh_authorized_key type is a convenience define used to install
+ssh authentication on an amanda client. The important parameter for this type
+is `key`.
+
+    amanda::ssh_authorized_key { 'replicator':
+      key => hiera('pubkey/backup@replicator'),
+    }
+
 ## Known Issues
 
-It doesn't have any kind of storeconfigs magic that could be used to
-dynamically generate the disklist file. That would be pretty cool. Totally
-haven't done it yet.
+* It doesn't have any kind of storeconfigs magic that could be used to
+  dynamically generate the disklist file. That would be pretty cool. Totally
+  haven't done it yet.
+
+* The module does not include tests
+
+* The module does not allow overriding of the client/server package name(s)
 
 ## Contributors
 
