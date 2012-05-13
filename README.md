@@ -161,7 +161,6 @@ is `key`.
 * The module does not allow overriding of the client/server package name(s)
 
 ## Contributors
-
 Darin Perusich <darin@darins.net>
 Jon Harker <jesusaurus@cat.pdx.edu>
 Reid Vandewiele <marut@cat.pdx.edu>

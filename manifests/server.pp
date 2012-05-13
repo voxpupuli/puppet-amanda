@@ -3,8 +3,8 @@ class amanda::server (
   $configs_directory        = undef,
   $manage_configs_directory = true,
   $configs_source           = 'amanda',
-  $directory_mode           = '755',
-  $file_mode                = '644',
+  $directory_mode           = '0755',
+  $file_mode                = '0644',
   $group                    = undef,
   $owner                    = undef,
   $xinetd                   = true
