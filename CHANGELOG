@@ -1,6 +1,12 @@
+0.1.2 - pdxcat/amanda - 2012/05/13
+
+  ******* Udate CHANGELOG for 0.1.2 patch
+  4e3437a Fix style violations and README syntax
+  8365d8b Fix bad default logic for configs_directory param
+
 0.1.1 - pdxcat/amanda - 2012/05/11
 
-  ******* Update CHANGELOG for 0.1.1 release
+  4cf6223 Update CHANGELOG for 0.1.1 release
   cb217bf Update README file
   9c96e28 Clean up puppet-lint style errors
 
