@@ -14,7 +14,7 @@ define amanda::config (
   if $configs_directory != undef {
     $configs_directory_real = $configs_directory
   } else {
-    $configs_directory_real = "$amanda::params::configs_directory/$config"
+    $configs_directory_real = $amanda::params::configs_directory
   }
 
   if $owner != undef {
