@@ -1,6 +1,13 @@
+0.1.3 - pdxcat/amanda - 2012/05/13
+
+  ******* Update CHANGELOG for 0.1.3 patch
+  a1230bf Add smoke test "demo", which includes a config
+  1060449 Fix logic bug in amanda::config
+  231a5e9 Add smoke tests
+
 0.1.2 - pdxcat/amanda - 2012/05/13
 
-  ******* Udate CHANGELOG for 0.1.2 patch
+  cf93c7e Udate CHANGELOG for 0.1.2 patch
   4e3437a Fix style violations and README syntax
   8365d8b Fix bad default logic for configs_directory param
 
