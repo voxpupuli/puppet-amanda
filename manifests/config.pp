@@ -50,6 +50,13 @@ define amanda::config (
     }
   }
 
+  file { "$configs_directory_real/$config":
+    ensure => $ensure_directory,
+    owner  => $owner_real,
+    group  => $group_real,
+    mode   => $directory_mode,
+  }
+
   $params = {
     'ensure'            => $ensure,
     'owner'             => $owner_real,
