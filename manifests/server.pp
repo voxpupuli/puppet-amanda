@@ -2,9 +2,8 @@ class amanda::server (
   $configs                  = [],
   $configs_directory        = undef,
   $manage_configs_directory = true,
-  $configs_source           = 'amanda',
-  $directory_mode           = '0755',
-  $file_mode                = '0644',
+  $configs_source           = 'modules/amanda/server/example',
+  $mode                     = '0644',
   $group                    = undef,
   $owner                    = undef,
   $xinetd                   = true
@@ -59,8 +58,7 @@ class amanda::server (
     configs_source           => $configs_source,
     owner                    => $owner_real,
     group                    => $group_real,
-    file_mode                => $file_mode,
-    directory_mode           => $directory_mode,
+    mode                     => $mode,
   }
 
 }

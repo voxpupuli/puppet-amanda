@@ -6,8 +6,7 @@ define amanda::config (
   $configs_source           = 'modules/amanda/server',
   $owner                    = undef,
   $group                    = undef,
-  $file_mode                = '0644',
-  $directory_mode           = '0755'
+  $mode                     = '0644'
 ) {
   include amanda::params
 
@@ -51,21 +50,12 @@ define amanda::config (
   }
 
   file { "$configs_directory_real/$config":
-    ensure => $ensure_directory,
-    owner  => $owner_real,
-    group  => $group_real,
-    mode   => $directory_mode,
+    ensure  => $ensure_directory,
+    owner   => $owner_real,
+    group   => $group_real,
+    mode    => $mode,
+    recurse => remote,
+    source  => "puppet://$server/$configs_source/$config"
   }
-
-  $params = {
-    'ensure'            => $ensure,
-    'owner'             => $owner_real,
-    'group'             => $group_real,
-    'file_mode'         => $file_mode,
-    'directory_mode'    => $directory_mode,
-    'configs_directory' => $configs_directory_real,
-  }
-
-  create_amanda_config_files($config, $configs_source, $params)
 
 }
