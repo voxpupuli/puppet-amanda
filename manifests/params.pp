@@ -70,6 +70,24 @@ class amanda::params {
         '/tmp/amanda/amandad',
       ]
     }
+    'RedHat':  {
+      $configs_directory      = '/etc/amanda'
+      $homedir                = '/var/lib/amanda'
+      $uid                    = '33'
+      $user                   = 'amanda'
+      $comment                = 'Amanda admin'
+      $group                  = 'disk'
+      $groups                 = [ ]
+      $generic_package        = 'amanda'
+      $server_provides_client = true  # there's only one package on redhat
+      $amandad_path           = '/usr/lib/amanda/amandad'
+      $amandaidx_path         = '/usr/lib/amanda/amindexd'
+      $amandataped_path       = '/usr/lib/amanda/amidxtaped'
+      $amanda_directories     = [
+        '/tmp/amanda',
+        '/tmp/amanda/amandad',
+      ]
+    }
     'FreeBSD': {
       $configs_directory      = '/usr/local/etc/amanda'
       $homedir                = '/var/db/amanda'
