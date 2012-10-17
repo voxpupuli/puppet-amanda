@@ -74,7 +74,10 @@ class amanda::params {
       $configs_directory      = '/etc/amanda'
       $homedir                = '/var/lib/amanda'
       $uid                    = '33'
-      $user                   = 'amanda'
+      $user                   = $::lsbmajdistrelease ? {
+        '5'     => 'amanda',
+        default => 'amandabackup',
+      }
       $comment                = 'Amanda admin'
       $group                  = 'disk'
       $groups                 = [ ]
