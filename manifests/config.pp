@@ -56,7 +56,7 @@ define amanda::config (
     mode    => $mode,
     recurse => remote,
     source  => "puppet://$server/$configs_source/$config",
-	ignore  => ".svn"
+    ignore  => ".svn"
   }
 
 }
