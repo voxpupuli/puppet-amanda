@@ -1,3 +1,11 @@
+0.1.5 - pdxcat/amanda - 2013/03/19
+
+  e9c5e3c Merge pull request #4 from cdelston/master
+  4cee13a Fix whitespace in 10fdface15c549430463
+  10fdfac Ignore .svn directory when recursing remote config
+  ac3d6b1 Add rhel6 support to amanda module
+  37b3da1 Add redhat params and support
+
 0.1.4 - pdxcat/amanda - 2012/05/19
 
   ******* Update CHANGELOG for 0.1.4 patch
