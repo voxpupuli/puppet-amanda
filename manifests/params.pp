@@ -81,8 +81,9 @@ class amanda::params {
       $comment                = 'Amanda admin'
       $group                  = 'disk'
       $groups                 = [ ]
-      $generic_package        = 'amanda'
-      $server_provides_client = true  # there's only one package on redhat
+      $client_package         = 'amanda-client'
+      $server_package         = 'amanda-server'
+      $server_provides_client = false
       $amandad_path           = '/usr/lib/amanda/amandad'
       $amandaidx_path         = '/usr/lib/amanda/amindexd'
       $amandataped_path       = '/usr/lib/amanda/amidxtaped'
