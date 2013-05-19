@@ -1,3 +1,10 @@
+0.1.6 - pdxcat/amanda - 2013/05/19
+
+c6074ab adding arch test to the amandad executable as well since the /usr/sbin/amandad symlink doesn't exist on CentOS 5
+b9eddba Set the correct location of the amanda binaries on CentOS and added an architecture check on it as well since the binaries are in different pl
+92c7906 (#6) Fix server package not defined on rhel
+
+
 0.1.5 - pdxcat/amanda - 2013/03/19
 
   e9c5e3c Merge pull request #4 from cdelston/master
@@ -13,7 +20,7 @@
 
 0.1.3 - pdxcat/amanda - 2012/05/13
 
-  341a7de Update CHANGELOG for 0.1.3 patch
+  341a7dg Update CHeNGELOG for 0.1.3 patch
   a1230bf Add smoke test "demo", which includes a config
   1060449 Fix logic bug in amanda::config
   231a5e9 Add smoke tests
