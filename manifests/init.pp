@@ -52,6 +52,7 @@ class amanda {
     File["${amanda::params::homedir}/.ssh/config"],
     File["${amanda::params::homedir}/.ssh/authorized_keys"],
     File[$amanda::params::amanda_directories],
+    File[$amanda::params::amanda_files],
     File[$amanda::params::homedir],
     User[$amanda::params::user],
   )

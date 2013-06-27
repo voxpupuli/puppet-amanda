@@ -49,6 +49,8 @@ class amanda::params {
         '/var/amanda/gnutar-lists',
         '/var/log/amanda',
       ]
+      $amanda_files           = [
+      ]
     }
     'Solaris': {
       $configs_directory      = '/etc/amanda'
@@ -69,6 +71,9 @@ class amanda::params {
         '/tmp/amanda',
         '/tmp/amanda/amandad',
         '/opt/csw/var/amanda/gnutar-lists',
+      ]
+      $amanda_files           = [
+        '/opt/csw/var/amanda/amandates',
       ]
     }
     'RedHat':  {
@@ -101,6 +106,8 @@ class amanda::params {
         '/tmp/amanda',
         '/tmp/amanda/amandad',
       ]
+      $amanda_files           = [
+      ]
     }
     'FreeBSD': {
       $configs_directory      = '/usr/local/etc/amanda'
@@ -126,6 +133,8 @@ class amanda::params {
         '/usr/local/var/amanda',
         '/usr/local/var/amanda/gnutar-lists',
       ]
+      $amanda_files           = [
+      ]
     }
     'Suse':  {
       $configs_directory      = '/etc/amanda'
@@ -143,6 +152,8 @@ class amanda::params {
       $amanda_directories     = [
         '/tmp/amanda',
         '/tmp/amanda/amandad',
+      ]
+      $amanda_files           = [
       ]
     }
     default:   {
@@ -164,6 +175,8 @@ class amanda::params {
       $amanda_directories     = [
         '/tmp/amanda',
         '/tmp/amanda/amandad',
+      ]
+      $amanda_files           = [
       ]
     }
   }

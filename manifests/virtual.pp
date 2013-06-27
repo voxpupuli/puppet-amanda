@@ -47,6 +47,10 @@ class amanda::virtual {
     ensure => directory,
     mode   => '0700',
   }
+  @file { $amanda::params::amanda_files:
+    ensure => present,
+    mode   => '0600',
+  }
 
   ##
   # This variable is used because parameter defaults don't seem to descend
