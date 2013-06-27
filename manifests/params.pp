@@ -68,6 +68,7 @@ class amanda::params {
       $amanda_directories     = [
         '/tmp/amanda',
         '/tmp/amanda/amandad',
+        '/opt/csw/var/amanda/gnutar-lists',
       ]
     }
     'RedHat':  {
