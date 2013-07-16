@@ -11,20 +11,20 @@ the heavy lifting in a single definition (relying on sane defaults), or for
 more custom configuration the utility defines can be used directly. What
 follows is a minimal-effort configuration that trusts the module to figure out
 the details.
+```puppet
+node 'backup.cat.pdx.edu' {
+  class { 'amanda::server':
+    configs        => [ 'daily', 'archive' ],
+    configs_source => 'modules/data/amanda',
+  }
+}
 
-    node 'backup.cat.pdx.edu' {
-      class { 'amanda::server':
-        configs        => [ 'daily', 'archive' ],
-        configs_source => 'modules/data/amanda',
-      }
-    }
-
-    node 'client.cat.pdx.edu' {
-      class { 'amanda::client':
-        server => 'backup.cat.pdx.edu',
-      }
-    }
-
+node 'client.cat.pdx.edu' {
+  class { 'amanda::client':
+    server => 'backup.cat.pdx.edu',
+  }
+}
+```
 Of note is the `configs_source` parameter. While the amanda module will
 install and configure server and client machines, it does not yet attempt to build
 amanda configs using puppet code. Rather, that legwork is still left up to the
@@ -39,24 +39,24 @@ way to look up how to use them is to read the source.
 
 Use the following Puppet DSL code to ensure the "daily" and "archive" configs
 are created on an amanda backup server.
+```puppet
+node 'backup.cat.pdx.edu' {
+  file { '/etc/amanda':
+    ensure => directory;
+  }
 
-    node 'backup.cat.pdx.edu' {
-      file { '/etc/amanda':
-        ensure => directory;
-      }
-
-      amanda::config { 'daily':
-        ensure            => present,
-        configs_source    => 'modules/data/amanda',
-        configs_directory => '/etc/amanda',
-      }
-      amanda::config { 'archive':
-        ensure            => present,
-        configs_source    => 'modules/data/amanda',
-        configs_directory => '/etc/amanda',
-      }
-    }
-
+  amanda::config { 'daily':
+    ensure            => present,
+    configs_source    => 'modules/data/amanda',
+    configs_directory => '/etc/amanda',
+  }
+  amanda::config { 'archive':
+    ensure            => present,
+    configs_source    => 'modules/data/amanda',
+    configs_directory => '/etc/amanda',
+  }
+}
+```
 Then place your config files in the "files" directory of the module specified
 with the `configs_source` parameter. For the code above, files that make up
 the "archive" and "daily" amanda configs should be placed in the `data` module
@@ -88,7 +88,7 @@ as per this example:
 
 The contents of the `config` directory ("daily" or "archive") will be synced
 as file resources to the location specified with the `configs_directory`
-specified in the amanda::config resource. For the example above, the files
+specified in the `amanda::config` resource. For the example above, the files
 will be synced to the agent system as:
 
     /
@@ -115,41 +115,41 @@ will be synced to the agent system as:
 
 ## Additional Types
 
-Besides the primary classes amanda::server and amanda::client, three utility
+Besides the primary classes `amanda::server` and `amanda::client`, three utility
 defines are included in the module.
 
-### Amanda::Amandahosts
+### `Amanda::Amandahosts`
 
-The amanda::amandahosts type manages the .amandahosts file, which controls
+The `amanda::amandahosts` type manages the .amandahosts file, which controls
 access to amanda services. The important parameter to this resource is
 `content`, and the user must specify the full access line to include. For
 example,
+```puppet
+amanda::amandahosts { 'replicator-amdump':
+  content => "replicator.cat.pdx.edu backup amdump",
+}
+```
+### `Amanda::Config`
 
-    amanda::amandahosts { 'replicator-amdump':
-      content => "replicator.cat.pdx.edu backup amdump",
-    }
-
-### Amanda::Config
-
-The amanda::config type synchronizes a directory of files in a given module to
+The `amanda::config` type synchronizes a directory of files in a given module to
 a client. A more detailed example is given in the preceding section.
+```puppet
+amanda::config { 'daily':
+  ensure            => present,
+  configs_source    => 'modules/data/amanda',
+  configs_directory => '/etc/amanda',
+}
+```
+### `Amanda::Ssh_authorized_key`
 
-    amanda::config { 'daily':
-      ensure            => present,
-      configs_source    => 'modules/data/amanda',
-      configs_directory => '/etc/amanda',
-    }
-
-### Amanda::Ssh_authorized_key
-
-The amanda::ssh_authorized_key type is a convenience define used to install
+The `amanda::ssh_authorized_key` type is a convenience define used to install
 ssh authentication on an amanda client. The important parameter for this type
 is `key`.
-
-    amanda::ssh_authorized_key { 'replicator':
-      key => hiera('pubkey/backup@replicator'),
-    }
-
+```puppet
+amanda::ssh_authorized_key { 'replicator':
+  key => hiera('pubkey/backup@replicator'),
+}
+```
 ## Known Issues
 
 * It doesn't have any kind of storeconfigs magic that could be used to
