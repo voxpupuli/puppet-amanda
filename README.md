@@ -161,7 +161,7 @@ amanda::ssh_authorized_key { 'replicator':
 * The module does not allow overriding of the client/server package name(s)
 
 ## Contributors
-Darin Perusich <darin@darins.net>
-Jon Harker <jesusaurus@cat.pdx.edu>
-Reid Vandewiele <marut@cat.pdx.edu>
-William Van Hevelingen <blkperl@cat.pdx.edu>
+* Darin Perusich <darin@darins.net>
+* Jon Harker <jesusaurus@cat.pdx.edu>
+* Reid Vandewiele <marut@cat.pdx.edu>
+* William Van Hevelingen <blkperl@cat.pdx.edu>
