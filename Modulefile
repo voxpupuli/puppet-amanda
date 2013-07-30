@@ -1,5 +1,5 @@
 name    'pdxcat-amanda'
-version '0.1.6'
+version '0.1.7'
 source 'https://github.com/pdxcat/puppet-module-amanda'
 author 'Computer Action Team'
 license 'Apache License 2.0'

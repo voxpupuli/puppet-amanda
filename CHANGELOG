@@ -1,8 +1,16 @@
+0.1.7 - pdxcat/amanda - 2013/08/01
+
+  547a444 Update dependencies to use puppetlabs/xinetd
+  18d3e8a Contributors list in readme now in list format.
+  c1cb18c Made Readme nice looking for GitHub formatting
+  755c742 add amanda_files which is similar to amanda_directories, it contains files that need to be chowned to the amanda user.
+  6aad38c Add /opt/csw/var/amanda/gnutar-lists to list of directories to chown for Solaris
+
 0.1.6 - pdxcat/amanda - 2013/05/19
 
-c6074ab adding arch test to the amandad executable as well since the /usr/sbin/amandad symlink doesn't exist on CentOS 5
-b9eddba Set the correct location of the amanda binaries on CentOS and added an architecture check on it as well since the binaries are in different pl
-92c7906 (#6) Fix server package not defined on rhel
+  c6074ab adding arch test to the amandad executable as well since the /usr/sbin/amandad symlink doesn't exist on CentOS 5
+  b9eddba Set the correct location of the amanda binaries on CentOS and added an architecture check on it as well since the binaries are in different pl
+  92c7906 (#6) Fix server package not defined on rhel
 
 
 0.1.5 - pdxcat/amanda - 2013/03/19
