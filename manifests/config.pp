@@ -3,6 +3,7 @@ define amanda::config (
   $config                   = $title,
   $configs_directory        = undef,
   $manage_configs_directory = true,
+  $manage_dle               = false,
   $configs_source           = 'modules/amanda/server',
   $owner                    = undef,
   $group                    = undef,
@@ -59,4 +60,13 @@ define amanda::config (
     ignore  => ".svn"
   }
 
+  if $manage_dle == true {
+    concat { "$configs_directory_real/$config/disklist": }
+    concat::fragment { "dle_header_$config":
+        target  => "$configs_directory_real/$config/disklist",
+        order   => 01,
+        content => "# Managed by puppet\n"
+    }
+    Concat<<| tag == "amanda_dle" |>> { target => "$configs_directory_real/$config/disklist" }
+  }
 }
