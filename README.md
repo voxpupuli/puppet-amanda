@@ -166,6 +166,7 @@ amanda::disklist::dle { '/etc':
    configs  => 'daily',
    dumptype => 'dumptype',
 }
+
 amanda::disklist::dle { '/var':
    configs  => [ 'daily', 'weekly' ],
    dumptype => 'dumptype',
