@@ -1,20 +1,22 @@
 define amanda::disklist (
-    $configs,
-    $diskdevice = undef,
+    $diskdevice,
     $dumptype,
-    $ensure     = present,
-    $interface  = undef,
-    $order      = 20,
-    $spindle    = undef
+    $ensure,
+    $interface,
+    $order,
+    $spindle
     ) {
     include amanda::params
     include amanda::virtual
 
-    concat::fragment { "amanda::disklist/$title":
-        target  => "$amanda::params::configs_directory/$configs/disklist",
+    $config = regsubst($title, '^.*-', '')
+    $disk   = regsubst($title, '-[^-]*$', '')
+
+    concat::fragment { "amanda::disklist/${title}":
+        target  => "${amanda::params::configs_directory}/${config}/disklist",
         ensure  => $ensure,
         order   => $order,
-        content => "$fqdn $name $diskdevice $dumptype $spindle $interface\n",
+        content => "${::fqdn} ${disk} ${diskdevice} ${dumptype} ${spindle} ${interface}\n",
         tag     => "amanda_dle",
     }
 }
