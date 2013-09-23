@@ -172,7 +172,6 @@ amanda::disklist::dle { '/var':
    dumptype => 'dumptype',
 }
 ```
-
 ## Known Issues
 
 * The module does not include tests
