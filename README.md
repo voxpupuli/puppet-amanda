@@ -150,11 +150,29 @@ amanda::ssh_authorized_key { 'replicator':
   key => hiera('pubkey/backup@replicator'),
 }
 ```
-## Known Issues
+### `Amanda::Disklist::Dle`
 
-* It doesn't have any kind of storeconfigs magic that could be used to
-  dynamically generate the disklist file. That would be pretty cool. Totally
-  haven't done it yet.
+The `amanda::disklist::dle` type is used to add/remove disk list entries
+from the Amanda disklist(5) file, which is used by Amanda to determine which
+disks will be backed up.
+
+Requirements:
+* Puppet `storeconfigs` must be enabled
+* `amanda::config` must be used to synchronize configuration files with the
+  `manage_dle` parameter set to `true`, i.e. `manage_dle => true`. This
+  must be set for each `amanda::config` if more than one has been configured.
+```puppet
+amanda::disklist::dle { '/etc':
+   configs  => 'daily',
+   dumptype => 'dumptype',
+}
+amanda::disklist::dle { '/var':
+   configs  => [ 'daily', 'weekly' ],
+   dumptype => 'dumptype',
+}
+```
+
+## Known Issues
 
 * The module does not include tests
 
