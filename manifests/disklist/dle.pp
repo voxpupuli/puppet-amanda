@@ -10,7 +10,7 @@ define amanda::disklist::dle (
     include amanda::params
     include amanda::virtual
 
-    $entries = regsubst($configs, '.*', "${title}-\\0")
+    $entries = regsubst($configs, '.*', "${title}@\\0")
 
     amanda::disklist { $entries:
         diskdevice => $diskdevice,

@@ -9,8 +9,8 @@ define amanda::disklist (
     include amanda::params
     include amanda::virtual
 
-    $config = regsubst($title, '^.*-', '')
-    $disk   = regsubst($title, '-[^-]*$', '')
+    $config = regsubst($title, '^.*@', '')
+    $disk   = regsubst($title, '@[^@]*$', '')
 
     concat::fragment { "amanda::disklist/${title}":
         target  => "${amanda::params::configs_directory}/${config}/disklist",
