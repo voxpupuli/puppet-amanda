@@ -161,6 +161,7 @@ Requirements:
 * `amanda::config` must be used to synchronize configuration files with the
   `manage_dle` parameter set to `true`, i.e. `manage_dle => true`. This
   must be set for each `amanda::config` if more than one has been configured.
+
 ```puppet
 amanda::disklist::dle { '/etc':
    configs  => 'daily',
