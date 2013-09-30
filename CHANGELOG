@@ -1,3 +1,14 @@
+2013-09-29 Release 1.0.0
+
+Summary:
+
+Add disklist support for Amanda
+
+Backwards-incompatible changes:
+
+  - Changed dependency on ripienaar/concat to puppetlabs/concat
+  - Added dependency on stdlib
+
 0.1.7 - pdxcat/amanda - 2013/08/01
 
   547a444 Update dependencies to use puppetlabs/xinetd
