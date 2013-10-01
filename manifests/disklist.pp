@@ -15,7 +15,7 @@ define amanda::disklist (
     validate_string($config)
     validate_string($disk)
 
-    concat::fragment { "amanda::disklist/${title}":
+    @@concat::fragment { "amanda::disklist/$::fqdn/${title}":
         target  => "${amanda::params::configs_directory}/${config}/disklist",
         ensure  => $ensure,
         order   => $order,
