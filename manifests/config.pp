@@ -61,7 +61,11 @@ define amanda::config (
   }
 
   if $manage_dle == true {
-    concat { "$configs_directory_real/$config/disklist": }
+    concat { "$configs_directory_real/$config/disklist":
+        owner   => $owner_real,
+        group   => $group_real,
+        mode    => $mode,
+    }
     concat::fragment { "dle_header_$config":
         target  => "$configs_directory_real/$config/disklist",
         order   => 01,
