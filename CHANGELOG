@@ -1,3 +1,26 @@
+2013-10-02 Release 1.0.2
+
+Summary:
+
+Revert set type unlisted in xinetd config
+
+This change was not ready to be merged
+
+Backwards-incompatible changes:
+  - Set type unlisted in xinetd config
+
+2013-10-02 Release 1.0.1
+
+Summary:
+
+Fix amanda::disklist::dle export bug
+
+Bugs:
+
+  - Fix amanda::disklist::dle export bug
+  - Set proper ownership on disklist file
+  - Set type unlisted in xinetd config
+
 2013-09-29 Release 1.0.0
 
 Summary:
