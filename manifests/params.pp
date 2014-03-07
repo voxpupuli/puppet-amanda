@@ -43,8 +43,6 @@ class amanda::params {
       $amandaidx_path         = '/usr/lib/amanda/amindexd'
       $amandataped_path       = '/usr/lib/amanda/amidxtaped'
       $amanda_directories     = [
-        '/tmp/amanda',
-        '/tmp/amanda/amandad',
         '/var/amanda',
         '/var/amanda/gnutar-lists',
         '/var/log/amanda',
@@ -68,8 +66,6 @@ class amanda::params {
       $amandaidx_path         = '/opt/csw/libexec/amanda/amindexd'
       $amandataped_path       = '/opt/csw/libexec/amanda/amidxtaped'
       $amanda_directories     = [
-        '/tmp/amanda',
-        '/tmp/amanda/amandad',
         '/opt/csw/var/amanda/gnutar-lists',
       ]
       $amanda_files           = [
@@ -103,8 +99,6 @@ class amanda::params {
         i386   => '/usr/lib/amanda/amidxtaped',
       }
       $amanda_directories     = [
-        '/tmp/amanda',
-        '/tmp/amanda/amandad',
       ]
       $amanda_files           = [
       ]
