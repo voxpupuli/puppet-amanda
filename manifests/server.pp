@@ -6,7 +6,8 @@ class amanda::server (
   $mode                     = '0644',
   $group                    = undef,
   $owner                    = undef,
-  $xinetd                   = true
+  $xinetd                   = true,
+  $manage_dle               = false,
 ) {
   include amanda
   include amanda::params
@@ -59,6 +60,7 @@ class amanda::server (
     owner                    => $owner_real,
     group                    => $group_real,
     mode                     => $mode,
+    manage_dle               => $manage_dle,
   }
 
 }
