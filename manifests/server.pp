@@ -63,4 +63,7 @@ class amanda::server (
     manage_dle               => $manage_dle,
   }
 
+  ## import client ssh hosy keys into known_hosts
+  SshKey <<| tag == 'amanda_client_host_keys' |>>
+
 }
