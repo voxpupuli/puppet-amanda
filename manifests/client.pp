@@ -1,7 +1,8 @@
 class amanda::client (
-  $remote_user = undef,
-  $server      = "backup.$::domain",
-  $xinetd      = true
+  $remote_user      = undef,
+  $server           = "backup.$::domain",
+  $xinetd           = true,
+  $import_host_keys = false,
 ) {
   include amanda
   include amanda::params
@@ -32,14 +33,16 @@ class amanda::client (
     order   => '00';
   }
 
-  ## export our ssh host keys
-  @@sshkey { "${::clientcert}_amanda":
-    ensure       => present,
-    host_aliases => [$::fqdn,$::ipaddress],
-    key          => $::sshrsakey,
-    type         => 'ssh-rsa',
-    target       => "${amanda::params::homedir}/.ssh/known_hosts",
-    tag          => 'amanda_client_host_keys',
+  if ($import_host_keys) {
+    ## export our ssh host keys
+    @@sshkey { "${::clientcert}_amanda":
+      ensure       => present,
+      host_aliases => [$::fqdn,$::ipaddress],
+      key          => $::sshrsakey,
+      type         => 'ssh-rsa',
+      target       => "${amanda::params::homedir}/.ssh/known_hosts",
+      tag          => 'amanda_client_host_keys',
+    }
   }
 
 }
