@@ -1,5 +1,7 @@
 # Amanda module for Puppet
 
+[![Build Status](https://travis-ci.org/pdxcat/puppet-module-amanda.svg)](https://travis-ci.org/pdxcat/puppet-module-amanda)
+
 ## Description
 
 Provides Amanda Network Backup server and client configuration through Puppet
