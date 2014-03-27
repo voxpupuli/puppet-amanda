@@ -8,7 +8,7 @@ class amanda::server (
   $owner                    = undef,
   $xinetd                   = true,
   $manage_dle               = false,
-  $import_host_keys         = false,
+  $export_host_keys         = false,
 ) {
   include amanda
   include amanda::params
@@ -64,7 +64,7 @@ class amanda::server (
     manage_dle               => $manage_dle,
   }
 
-  if ($import_host_keys) {
+  if ($export_host_keys) {
     ## import client ssh hosy keys into known_hosts
     SshKey <<| tag == 'amanda_client_host_keys' |>>
   }

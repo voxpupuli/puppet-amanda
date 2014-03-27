@@ -2,7 +2,7 @@ class amanda::client (
   $remote_user      = undef,
   $server           = "backup.$::domain",
   $xinetd           = true,
-  $import_host_keys = false,
+  $export_host_keys = false,
 ) {
   include amanda
   include amanda::params
@@ -33,7 +33,7 @@ class amanda::client (
     order   => '00';
   }
 
-  if ($import_host_keys) {
+  if ($export_host_keys) {
     ## export our ssh host keys
     @@sshkey { "${::clientcert}_amanda":
       ensure       => present,
