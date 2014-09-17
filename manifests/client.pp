@@ -1,6 +1,6 @@
 class amanda::client (
   $remote_user      = undef,
-  $server           = "backup.$::domain",
+  $server           = "backup.${::domain}",
   $xinetd           = true,
   $export_host_keys = false,
 ) {
@@ -15,7 +15,7 @@ class amanda::client (
   }
 
   # for systems that don't use xinetd, don't use xinetd
-  if (("x$xinetd" == 'xtrue') and !$amanda::params::xinetd_unsupported) {
+  if (("x${xinetd}" == 'xtrue') and !$amanda::params::xinetd_unsupported) {
     realize(
       Xinetd::Service['amanda_tcp'],
       Xinetd::Service['amanda_udp'],

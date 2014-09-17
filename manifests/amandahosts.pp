@@ -8,10 +8,10 @@ define amanda::amandahosts (
 
   realize(Concat["${amanda::params::homedir}/.amandahosts"])
 
-  concat::fragment { "amanda::amandahosts/$title":
+  concat::fragment { "amanda::amandahosts/${title}":
     ensure  => $ensure,
     target  => "${amanda::params::homedir}/.amandahosts",
-    content => "$content\n",
+    content => "${content}\n",
     order   => $order;
   }
 }

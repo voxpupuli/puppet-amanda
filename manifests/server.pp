@@ -39,7 +39,7 @@ class amanda::server (
   }
 
   # for systems that don't use xinetd, don't use xinetd
-  if (("x$xinetd" == 'xtrue') and !$amanda::params::xinetd_unsupported) {
+  if (("x${xinetd}" == 'xtrue') and !$amanda::params::xinetd_unsupported) {
     realize(
       Xinetd::Service['amanda_indexd'],
       Xinetd::Service['amanda_taped'],
