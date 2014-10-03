@@ -1,5 +1,4 @@
 class amanda::virtual {
-  include concat::setup
   include amanda::params
 
   case $::operatingsystem {

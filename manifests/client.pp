@@ -6,7 +6,6 @@ class amanda::client (
 ) {
   include amanda
   include amanda::params
-  include concat::setup
 
   if $remote_user != undef {
     $remote_user_real = $remote_user

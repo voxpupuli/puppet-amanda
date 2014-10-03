@@ -8,6 +8,6 @@ description 'Amanda Module for Puppet'
 project_page 'https://github.com/pdxcat/puppet-module-amanda'
 
 ## Add dependencies, if any:
-dependency 'puppetlabs/concat', '>= 1.0.0'
+dependency 'puppetlabs/concat', '>= 1.1.1'
 dependency 'puppetlabs/xinetd', '>= 1.2.0'
 dependency 'puppetlabs/stdlib', '>= 2.2.1'
