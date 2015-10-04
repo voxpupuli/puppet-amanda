@@ -1,5 +1,6 @@
-.project
-metadata.json
-*.swp
-pkg/
+.*.sw?
+pkg
+spec/fixtures
+.rspec_system
+.vagrant
 Gemfile.lock

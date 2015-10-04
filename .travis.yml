@@ -1,24 +1,31 @@
-branches:
-  only:
-    - master
-language: ruby
-bundler_args: --without development
-script: "bundle exec rake travis SPEC_OPTS='--format documentation'"
-rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
-  - ruby-head
-env:
-  matrix:
-    - PUPPET_GEM_VERSION=">= 3.4"   FACTER_GEM_VERSION=">= 1.7"
-matrix:
-  fast_finish: true
-  allow_failures:
-    - rvm: 2.1.0
-    - rvm: ruby-head
-  include:
-  - rvm: 1.8.7
-    env: PUPPET_GEM_VERSION="~> 2.7" FACTER_GEM_VERSION="~> 1.6"
+---
 notifications:
   email: false
+sudo: false
+language: ruby
+bundler_args: --without system_tests
+before_install: rm Gemfile.lock || true
+script:
+  - 'bundle exec rake test'
+matrix:
+  fast_finish: true
+  include:
+  - rvm: 1.9.3
+    env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes"
+  - rvm: 2.1.6
+    env: PUPPET_VERSION="~> 3.0" STRICT_VARIABLES="yes"
+  - rvm: 2.1.6
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes"
+  - rvm: 2.2.0
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes"
+deploy:
+  provider: puppetforge
+  user: puppet
+  password:
+    secure: ""
+  on:
+    tags: true
+    # all_branches is required to use tags
+    all_branches: true
+    # Only publish if our main Ruby target builds
+    rvm: 1.9.3
