@@ -1,6 +1,6 @@
 # Amanda module for Puppet
 
-[![Build Status](https://travis-ci.org/pdxcat/puppet-module-amanda.svg)](https://travis-ci.org/pdxcat/puppet-module-amanda)
+[![Build Status](https://travis-ci.org/puppet-community/puppet-module-amanda.svg)](https://travis-ci.org/puppet-community/puppet-module-amanda)
 
 ## Description
 
