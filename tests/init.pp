@@ -1,1 +1,1 @@
-include amanda
+include ::amanda

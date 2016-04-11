@@ -1,5 +1,5 @@
 class amanda::virtual::server inherits amanda::virtual {
-  include amanda::params
+  include ::amanda::params
 
   # local variables used for better readability
   $server_provides_client = $amanda::params::server_provides_client

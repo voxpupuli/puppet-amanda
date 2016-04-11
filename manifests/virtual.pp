@@ -1,8 +1,8 @@
 class amanda::virtual {
-  include amanda::params
+  include ::amanda::params
 
   case $::operatingsystem {
-    'Solaris': { include amanda::virtual::solaris }
+    'Solaris': { include ::amanda::virtual::solaris }
     default:   { } # do nothing
   }
 

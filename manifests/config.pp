@@ -4,12 +4,12 @@ define amanda::config (
   $configs_directory        = undef,
   $manage_configs_directory = true,
   $manage_dle               = false,
-  $configs_source           = 'modules/amanda/server',
+  $configs_source           = 'amanda/server',
   $owner                    = undef,
   $group                    = undef,
   $mode                     = '0644'
 ) {
-  include amanda::params
+  include ::amanda::params
 
   if $configs_directory != undef {
     $configs_directory_real = $configs_directory
@@ -56,8 +56,8 @@ define amanda::config (
     group   => $group_real,
     mode    => $mode,
     recurse => remote,
-    source  => "puppet:///${configs_source}/${config}",
-    ignore  => '.svn'
+    source  => "puppet:///modules/${configs_source}/${config}",
+    ignore  => '.svn',
   }
 
   if $manage_dle == true {
@@ -68,8 +68,8 @@ define amanda::config (
     }
     concat::fragment { "dle_header_${config}":
         target  => "${configs_directory_real}/${config}/disklist",
-        order   => 01,
-        content => "# Managed by puppet\n"
+        order   => '01',
+        content => "# Managed by puppet\n",
     }
     Concat::Fragment <<| tag == 'amanda_dle' |>> { target => "${configs_directory_real}/${config}/disklist" }
   }
