@@ -1,6 +1,9 @@
 # Amanda module for Puppet
 
-[![Build Status](https://travis-ci.org/puppet-community/puppet-module-amanda.svg)](https://travis-ci.org/puppet-community/puppet-module-amanda)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/amanda)
+[![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/amanda)
+[![Puppet Forge score](https://img.shields.io/puppetforge/f/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/amanda)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-module-amanda.svg)](https://travis-ci.org/voxpupuli/puppet-module-amanda)
 
 ## Description
 

@@ -4,8 +4,8 @@ define amanda::ssh_authorized_key (
   $type    = undef,
   $options = undef
 ) {
-  include amanda
-  include amanda::params
+  include ::amanda
+  include ::amanda::params
 
   $default_type    = 'rsa'
   $default_options = [

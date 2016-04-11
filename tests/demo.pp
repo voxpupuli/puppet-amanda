@@ -1,11 +1,11 @@
-include amanda::params
+include ::amanda::params
 
-class { 'amanda::server':
+class { '::amanda::server':
   configs        => [ 'demo' ],
   configs_source => 'modules/amanda/server',
 }
 
-class { 'amanda::client':
+class { '::amanda::client':
   server => 'localhost',
 }
 

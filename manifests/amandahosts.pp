@@ -3,8 +3,8 @@ define amanda::amandahosts (
   $ensure  = present,
   $order   = '20'
 ) {
-  include amanda::params
-  include amanda::virtual
+  include ::amanda::params
+  include ::amanda::virtual
 
   realize(Concat["${amanda::params::homedir}/.amandahosts"])
 

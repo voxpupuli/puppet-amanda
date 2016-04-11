@@ -10,9 +10,9 @@ class amanda::server (
   $manage_dle               = false,
   $export_host_keys         = false,
 ) {
-  include amanda
-  include amanda::params
-  include amanda::virtual::server
+  include ::amanda
+  include ::amanda::params
+  include ::amanda::virtual::server
 
   if $owner != undef {
     $owner_real = $owner

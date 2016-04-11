@@ -43,8 +43,8 @@
 # /etc/amanda/rolling/.
 #
 class amanda {
-  include amanda::params
-  include amanda::virtual
+  include ::amanda::params
+  include ::amanda::virtual
 
   realize(
     File['/etc/dumpdates'],

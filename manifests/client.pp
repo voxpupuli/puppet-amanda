@@ -4,8 +4,8 @@ class amanda::client (
   $xinetd           = true,
   $export_host_keys = false,
 ) {
-  include amanda
-  include amanda::params
+  include ::amanda
+  include ::amanda::params
 
   if $remote_user != undef {
     $remote_user_real = $remote_user
