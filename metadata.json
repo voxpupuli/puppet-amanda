@@ -1,0 +1,25 @@
+{
+  "name": "puppet-amanda",
+  "version": "1.0.3",
+  "source": "https://github.com/voxpupuli/puppet-amanda",
+  "author": "voxpupuli",
+  "license": "Apache-2.0",
+  "summary": "Amanda Module for Puppet",
+  "description": "Amanda Module for Puppet",
+  "project_page": "https://github.com/voxpupuli/puppet-amanda",
+  "issues_url": "https://github.com/voxpupuli/puppet-amanda/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">=1.1.1"
+    },
+    {
+      "name": "puppetlabs/xinetd",
+      "version_requirement": ">=1.2.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=2.2.1"
+    }
+  ]
+}
