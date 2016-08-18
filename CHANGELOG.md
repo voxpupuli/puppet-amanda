@@ -1,4 +1,14 @@
-2013-10-02 Release 1.0.2
+## 2016-08-18 Release 2.0.0
+
+  * First release in the Vox Pupuli namespace
+  * Drop of ruby1.8.7 Support
+  * Set type UNLISTED for amandaidx and amidxtape in xinetd
+  * Correctly handle /tmp/amanda
+  * Add option for manage_dle to server
+  * Add option to enable ssh host key imports
+
+
+## 2013-10-02 Release 1.0.2
 
 Summary:
 
@@ -9,7 +19,8 @@ This change was not ready to be merged
 Backwards-incompatible changes:
   - Set type unlisted in xinetd config
 
-2013-10-02 Release 1.0.1
+
+## 2013-10-02 Release 1.0.1
 
 Summary:
 
@@ -21,7 +32,8 @@ Bugs:
   - Set proper ownership on disklist file
   - Set type unlisted in xinetd config
 
-2013-09-29 Release 1.0.0
+
+## 2013-09-29 Release 1.0.0
 
 Summary:
 
@@ -32,7 +44,7 @@ Backwards-incompatible changes:
   - Changed dependency on ripienaar/concat to puppetlabs/concat
   - Added dependency on stdlib
 
-0.1.7 - pdxcat/amanda - 2013/08/01
+## 2013-08-01 Release 0.1.7
 
   547a444 Update dependencies to use puppetlabs/xinetd
   18d3e8a Contributors list in readme now in list format.
@@ -40,14 +52,14 @@ Backwards-incompatible changes:
   755c742 add amanda_files which is similar to amanda_directories, it contains files that need to be chowned to the amanda user.
   6aad38c Add /opt/csw/var/amanda/gnutar-lists to list of directories to chown for Solaris
 
-0.1.6 - pdxcat/amanda - 2013/05/19
+## 2013-05-19 Release 0.1.6
 
   c6074ab adding arch test to the amandad executable as well since the /usr/sbin/amandad symlink doesn't exist on CentOS 5
   b9eddba Set the correct location of the amanda binaries on CentOS and added an architecture check on it as well since the binaries are in different pl
   92c7906 (#6) Fix server package not defined on rhel
 
 
-0.1.5 - pdxcat/amanda - 2013/03/19
+## 2013-03-19 Release 0.1.5
 
   e9c5e3c Merge pull request #4 from cdelston/master
   4cee13a Fix whitespace in 10fdface15c549430463
@@ -55,43 +67,48 @@ Backwards-incompatible changes:
   ac3d6b1 Add rhel6 support to amanda module
   37b3da1 Add redhat params and support
 
-0.1.4 - pdxcat/amanda - 2012/05/19
+## 2012-05-19 Release 0.1.4
 
-  ******* Update CHANGELOG for 0.1.4 patch
+  * Update CHANGELOG for 0.1.4 patch
   bbaabd4 Use built-in file features for config define
 
-0.1.3 - pdxcat/amanda - 2012/05/13
+## 2012-05-13 Release 0.1.3
 
   341a7dg Update CHeNGELOG for 0.1.3 patch
   a1230bf Add smoke test "demo", which includes a config
   1060449 Fix logic bug in amanda::config
   231a5e9 Add smoke tests
 
-0.1.2 - pdxcat/amanda - 2012/05/13
+
+## 2012-05-12 Release 0.1.2
 
   cf93c7e Udate CHANGELOG for 0.1.2 patch
   4e3437a Fix style violations and README syntax
   8365d8b Fix bad default logic for configs_directory param
 
-0.1.1 - pdxcat/amanda - 2012/05/11
+
+## 2012-05-11 Release 0.1.1
 
   4cf6223 Update CHANGELOG for 0.1.1 release
   cb217bf Update README file
   9c96e28 Clean up puppet-lint style errors
 
-0.1.0 - pdxcat/amanda - 2012/05/09
+
+## 2012-05-09 Release 0.1.0
 
   6146b82 Update CHANGELOG for 0.1.0 release
   229ce32 Switch Debian params from zmanda packages to dist
   0883ee6 Massively refactor module, redo how configs work
 
-0.0.3 - pdxcat/amanda - 2012/05/02
+
+## 2012-05-02 Release 0.0.3
 
   1daec40 Update CHANGELOG for 0.0.3 release
   9349442 Update xinetd resources (changed param name)
   e82cdbc Add version number of released concat module
 
-0.0.2 - pdxcat/amanda - 2012/04/26
+
+## 2012-04-26 Release 0.0.2
 
   0001044 Reverting "version number as date"
   fffdec8 The log directory should be created on debian
@@ -116,7 +133,8 @@ Backwards-incompatible changes:
   2086878 Adding concat management of .amandahosts
   2924c8e Adding amanda index xinetd entries
 
-0.0.1 - pdxcat/amanda - 2011/12/15
+
+## 2011-12-15 Release 0.0.1
 
   40b896f Adding the amanda user on ubuntu to tape group
   6a8a494 Fixing $genericpackage bug
