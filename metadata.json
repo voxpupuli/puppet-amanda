@@ -1,6 +1,6 @@
 {
   "name": "puppet-amanda",
-  "version": "2.0.0",
+  "version": "2.0.1-rc0",
   "summary": "Amanda Module for Puppet",
   "author": "Voxpupuli",
   "source": "https://github.com/voxpupuli/puppet-amanda.git",
