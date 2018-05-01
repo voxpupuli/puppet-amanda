@@ -1,15 +1,15 @@
 class amanda::server (
-  $configs                       = [],
-  $configs_directory             = undef,
-  $manage_configs_directory      = true,
-  Boolean $manage_configs_source = true,
-  $configs_source                = 'modules/amanda/server/example',
-  $mode                          = '0644',
-  $group                         = undef,
-  $owner                         = undef,
-  $xinetd                        = true,
-  $manage_dle                    = false,
-  $export_host_keys              = false,
+  Array[String]     $configs                  = [],
+  Optional[Boolean] $configs_directory        = undef,
+  Boolean           $manage_configs_directory = true,
+  Boolean           $manage_configs_source    = true,
+  String            $configs_source           = 'modules/amanda/server/example',
+  String            $mode                     = '0644',
+  Optional[Boolean] $group                    = undef,
+  Optional[Boolean] $owner                    = undef,
+  Boolean           $xinetd                   = true,
+  Boolean           $manage_dle               = false,
+  Boolean           $export_host_keys         = false,
 ) {
   include ::amanda
   include ::amanda::params
