@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.1.0](https://github.com/voxpupuli/puppet-amanda/tree/v3.1.0) (2018-05-01)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-amanda/compare/v3.0.1...v3.1.0)
+
+**Implemented enhancements:**
+
+- amanda::config via puppet scheme url now optional [\#54](https://github.com/voxpupuli/puppet-amanda/pull/54) ([mcgarrigle](https://github.com/mcgarrigle))
+
+**Merged pull requests:**
+
+- Add amanda::server parameters [\#58](https://github.com/voxpupuli/puppet-amanda/pull/58) ([mcgarrigle](https://github.com/mcgarrigle))
+
 ## [v3.0.1](https://github.com/voxpupuli/puppet-amanda/tree/v3.0.1) (2018-03-29)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-amanda/compare/v3.0.0...v3.0.1)
