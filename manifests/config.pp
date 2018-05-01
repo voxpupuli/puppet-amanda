@@ -5,6 +5,7 @@ define amanda::config (
   $manage_configs_directory = true,
   $manage_dle               = false,
   $configs_source           = 'amanda/server',
+  $manage_configs_source    = true,
   $owner                    = undef,
   $group                    = undef,
   $mode                     = '0644'
@@ -50,14 +51,23 @@ define amanda::config (
     }
   }
 
-  file { "${configs_directory_real}/${config}":
-    ensure  => $ensure_directory,
-    owner   => $owner_real,
-    group   => $group_real,
-    mode    => $mode,
-    recurse => remote,
-    source  => "puppet:///modules/${configs_source}/${config}",
-    ignore  => '.svn',
+  if $manage_configs_source {
+    file { "${configs_directory_real}/${config}":
+      ensure  => $ensure_directory,
+      owner   => $owner_real,
+      group   => $group_real,
+      mode    => $mode,
+      recurse => remote,
+      source  => "puppet:///modules/${configs_source}/${config}",
+      ignore  => '.svn',
+    }
+  } else {
+    file { "${configs_directory_real}/${config}":
+      ensure => $ensure_directory,
+      owner  => $owner_real,
+      group  => $group_real,
+      mode   => $mode,
+    }
   }
 
   if $manage_dle == true {

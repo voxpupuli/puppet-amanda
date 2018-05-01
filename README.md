@@ -40,6 +40,11 @@ amanda configs using puppet code. Rather, that legwork is still left up to the
 administrator, and the module will only ensure that the files which comprise
 the config are present on the server.
 
+If you need to create configs from templates or other sources, then by setting
+`manage_configs_source` to `false` will disable extraction via the mechanism
+below, you are then free to assign puppet file resources as appropriate to
+create your configs.
+
 Additional parameters are available for both the `amanda::server` and
 `amanda::client` classes which are not documented here. At present the only
 way to look up how to use them is to read the source.

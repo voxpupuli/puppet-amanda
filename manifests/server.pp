@@ -1,14 +1,15 @@
 class amanda::server (
-  $configs                  = [],
-  $configs_directory        = undef,
-  $manage_configs_directory = true,
-  $configs_source           = 'modules/amanda/server/example',
-  $mode                     = '0644',
-  $group                    = undef,
-  $owner                    = undef,
-  $xinetd                   = true,
-  $manage_dle               = false,
-  $export_host_keys         = false,
+  $configs                       = [],
+  $configs_directory             = undef,
+  $manage_configs_directory      = true,
+  Boolean $manage_configs_source = true,
+  $configs_source                = 'modules/amanda/server/example',
+  $mode                          = '0644',
+  $group                         = undef,
+  $owner                         = undef,
+  $xinetd                        = true,
+  $manage_dle                    = false,
+  $export_host_keys              = false,
 ) {
   include ::amanda
   include ::amanda::params
@@ -57,6 +58,7 @@ class amanda::server (
     ensure                   => present,
     manage_configs_directory => $manage_configs_directory,
     configs_directory        => $configs_directory,
+    manage_configs_source    => $manage_configs_source,
     configs_source           => $configs_source,
     owner                    => $owner_real,
     group                    => $group_real,
@@ -65,7 +67,7 @@ class amanda::server (
   }
 
   if ($export_host_keys) {
-    ## import client ssh hosy keys into known_hosts
+    ## import client ssh host keys into known_hosts
     SshKey <<| tag == 'amanda_client_host_keys' |>>
   }
 
