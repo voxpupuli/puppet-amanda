@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.2.0](https://github.com/voxpupuli/puppet-amanda/tree/v3.2.0) (2018-06-16)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-amanda/compare/v3.1.0...v3.2.0)
+
+**Implemented enhancements:**
+
+- Support puppetlabs/concat 4.2.1 and puppetlabs/xinetd 3.0.0 [\#63](https://github.com/voxpupuli/puppet-amanda/pull/63) ([markruys](https://github.com/markruys))
+
+**Merged pull requests:**
+
+- Remove docker nodesets [\#62](https://github.com/voxpupuli/puppet-amanda/pull/62) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.1.0](https://github.com/voxpupuli/puppet-amanda/tree/v3.1.0) (2018-05-01)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-amanda/compare/v3.0.1...v3.1.0)
