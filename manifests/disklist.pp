@@ -15,10 +15,12 @@ define amanda::disklist (
     validate_string($config)
     validate_string($disk)
 
-    @@concat::fragment { "amanda::disklist/${::fqdn}/${title}":
-        target  => "${amanda::params::configs_directory}/${config}/disklist",
-        order   => $order,
-        content => "${::fqdn} ${disk} ${diskdevice} ${dumptype} ${spindle} ${interface}\n",
-        tag     => 'amanda_dle',
+    if $ensure == 'present' {
+        @@concat::fragment { "amanda::disklist/${::fqdn}/${title}":
+            target  => "${amanda::params::configs_directory}/${config}/disklist",
+            order   => $order,
+            content => "${::fqdn} ${disk} ${diskdevice} ${dumptype} ${spindle} ${interface}\n",
+            tag     => 'amanda_dle',
+        }
     }
 }
