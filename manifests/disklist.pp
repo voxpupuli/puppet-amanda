@@ -12,8 +12,8 @@ define amanda::disklist (
     $config = regsubst($title, '^.*@', '')
     $disk   = regsubst($title, '@[^@]*$', '')
 
-    validate_string($config)
-    validate_string($disk)
+    assert_type(String, $config)
+    assert_type(String, $disk)
 
     if $ensure == 'present' {
         @@concat::fragment { "amanda::disklist/${::fqdn}/${title}":
