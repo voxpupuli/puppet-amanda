@@ -47,7 +47,7 @@ define amanda::config (
       path   => $configs_directory_real,
       owner  => $owner_real,
       group  => $group_real,
-      mode   => $::directory_mode,
+      mode   => $mode,
     }
   }
 
