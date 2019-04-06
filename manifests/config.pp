@@ -10,7 +10,7 @@ define amanda::config (
   $group                    = undef,
   $mode                     = '0644'
 ) {
-  include ::amanda::params
+  include amanda::params
 
   if $configs_directory != undef {
     $configs_directory_real = $configs_directory

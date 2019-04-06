@@ -7,8 +7,8 @@ define amanda::disklist::dle (
     $order      = 20,
     $spindle    = undef
     ) {
-    include ::amanda::params
-    include ::amanda::virtual
+    include amanda::params
+    include amanda::virtual
 
     $entries = regsubst($configs, '.*', "${title}@\\0")
 
