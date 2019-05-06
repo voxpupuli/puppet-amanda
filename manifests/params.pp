@@ -81,8 +81,11 @@ class amanda::params {
         default => 'amandabackup',
       }
       $comment                = 'Amanda admin'
+      $shell                  = '/bin/sh'
       $group                  = 'disk'
       $groups                 = [ ]
+      $xinetd_unsupported     = true
+      $generic_package        = undef
       $client_package         = 'amanda-client'
       $server_package         = 'amanda-server'
       $server_provides_client = false
