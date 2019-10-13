@@ -26,7 +26,7 @@
 #
 class amanda::params {
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian':  {
       $configs_directory      = '/etc/amanda'
       $homedir                = '/var/backups'
@@ -76,7 +76,7 @@ class amanda::params {
       $configs_directory      = '/etc/amanda'
       $homedir                = '/var/lib/amanda'
       $uid                    = '33'
-      $user                   = $::lsbmajdistrelease ? {
+      $user                   = $facts['os']['release']['major'] ? {
         '5'     => 'amanda',
         default => 'amandabackup',
       }
@@ -89,15 +89,15 @@ class amanda::params {
       $client_package         = 'amanda-client'
       $server_package         = 'amanda-server'
       $server_provides_client = false
-      $amandad_path           = $::architecture ? {
+      $amandad_path           = $facts['os']['architecture'] ? {
         'x86_64' => '/usr/lib64/amanda/amandad',
         'i386'   => '/usr/lib/amanda/amandad',
       }
-      $amandaidx_path         = $::architecture ? {
+      $amandaidx_path         = $facts['os']['architecture'] ? {
         'x86_64' => '/usr/lib64/amanda/amindexd',
         'i386'   => '/usr/lib/amanda/amindexd',
       }
-      $amandataped_path       = $::architecture ? {
+      $amandataped_path       = $facts['os']['architecture'] ? {
         'x86_64' => '/usr/lib64/amanda/amidxtaped',
         'i386'   => '/usr/lib/amanda/amidxtaped',
       }
@@ -113,7 +113,7 @@ class amanda::params {
       $user                   = 'amanda'
       $comment                = 'Amanda backup user'
       $shell                  = '/bin/sh'
-      $group                  = $::operatingsystemrelease ? {
+      $group                  = $facts['os']['release']['full'] ? {
         /^[4567]|^8\.[10]/ => 'operator', # FreeBSD versions < 8.2 suck
         default            => 'amanda',   # FreeBSD >= 8.2 uses amanda group
       }
