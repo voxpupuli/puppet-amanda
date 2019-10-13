@@ -16,10 +16,10 @@ define amanda::disklist (
     assert_type(String, $disk)
 
     if $ensure == 'present' {
-        @@concat::fragment { "amanda::disklist/${::fqdn}/${title}":
+        @@concat::fragment { "amanda::disklist/${facts['networking']['fqdn']}/${title}":
             target  => "${amanda::params::configs_directory}/${config}/disklist",
             order   => $order,
-            content => "${::fqdn} ${disk} ${diskdevice} ${dumptype} ${spindle} ${interface}\n",
+            content => "${facts['networking']['fqdn']} ${disk} ${diskdevice} ${dumptype} ${spindle} ${interface}\n",
             tag     => 'amanda_dle',
         }
     }

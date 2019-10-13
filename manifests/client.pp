@@ -1,6 +1,6 @@
 class amanda::client (
   $remote_user      = undef,
-  $server           = "backup.${::domain}",
+  $server           = "backup.${facts['networking']['domain']}",
   $xinetd           = true,
   $export_host_keys = false,
 ) {
@@ -34,10 +34,10 @@ class amanda::client (
 
   if ($export_host_keys) {
     ## export our ssh host keys
-    @@sshkey { "${::clientcert}_amanda":
+    @@sshkey { "${::clientcert}_amanda": # lint:ignore:legacy_facts
       ensure       => present,
-      host_aliases => [$::fqdn,$::ipaddress],
-      key          => $::sshrsakey,
+      host_aliases => [$facts['networking']['fqdn'],$facts['networking']['ip']],
+      key          => $::sshrsakey, # lint:ignore:legacy_facts
       type         => 'ssh-rsa',
       target       => "${amanda::params::homedir}/.ssh/known_hosts",
       tag          => 'amanda_client_host_keys',
