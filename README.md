@@ -1,11 +1,11 @@
 # Amanda module for Puppet
 
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-amanda.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-collectd)
-[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-amanda/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-collectd)
-[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/collectd)
-[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/collectd)
-[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/collectd)
-[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/collectd)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-amanda.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-amanda)
+[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-amanda/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-amanda)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/amanda)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/amanda)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/amanda)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/amanda)
 
 ## Description
 
