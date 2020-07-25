@@ -25,7 +25,6 @@
 #                  instead.
 #
 class amanda::params {
-
   case $facts['os']['family'] {
     'Debian':  {
       $configs_directory      = '/etc/amanda'
@@ -35,7 +34,7 @@ class amanda::params {
       $comment                = 'backup'
       $shell                  = '/bin/sh'
       $group                  = 'backup'
-      $groups                 = [ 'tape' ]
+      $groups                 = ['tape']
       $client_package         = 'amanda-client'
       $server_package         = 'amanda-server'
       $server_provides_client = false
@@ -58,7 +57,7 @@ class amanda::params {
       $comment                = 'Amanda backup user'
       $shell                  = '/bin/sh'
       $group                  = 'sys'
-      $groups                 = [ ]
+      $groups                 = []
       $xinetd_unsupported     = true
       $generic_package        = 'amanda'
       $server_provides_client = true # there's only one package for solaris
@@ -83,7 +82,7 @@ class amanda::params {
       $comment                = 'Amanda admin'
       $shell                  = '/bin/sh'
       $group                  = 'disk'
-      $groups                 = [ ]
+      $groups                 = []
       $xinetd_unsupported     = true
       $generic_package        = undef
       $client_package         = 'amanda-client'
@@ -117,7 +116,7 @@ class amanda::params {
         /^[4567]|^8\.[10]/ => 'operator', # FreeBSD versions < 8.2 suck
         default            => 'amanda',   # FreeBSD >= 8.2 uses amanda group
       }
-      $groups                 = [ 'operator' ]
+      $groups                 = ['operator']
       $client_package         = 'misc/amanda-client'
       $server_package         = 'misc/amanda-server'
       $server_provides_client = false # idunno
@@ -140,7 +139,7 @@ class amanda::params {
       $user                   = 'amanda'
       $comment                = 'Amanda admin'
       $group                  = 'amanda'
-      $groups                 = [ 'tape' ]
+      $groups                 = ['tape']
       $generic_package        = 'amanda'
       $server_provides_client = true  # there's only one package on suse
       $amandad_path           = '/usr/lib/amanda/amandad'
@@ -161,7 +160,7 @@ class amanda::params {
       $comment                = 'Amanda backup user'
       $shell                  = '/bin/sh'
       $group                  = 'backup'
-      $groups                 = [ ]
+      $groups                 = []
       $xinetd_unsupported     = true
       $client_package         = 'amanda-client'
       $server_package         = 'amanda-server'

@@ -70,5 +70,4 @@ class amanda::server (
     ## import client ssh host keys into known_hosts
     SshKey <<| tag == 'amanda_client_host_keys' |>>
   }
-
 }

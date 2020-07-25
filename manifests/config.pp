@@ -72,14 +72,14 @@ define amanda::config (
 
   if $manage_dle == true {
     concat { "${configs_directory_real}/${config}/disklist":
-        owner => $owner_real,
-        group => $group_real,
-        mode  => $mode,
+      owner => $owner_real,
+      group => $group_real,
+      mode  => $mode,
     }
     concat::fragment { "dle_header_${config}":
-        target  => "${configs_directory_real}/${config}/disklist",
-        order   => '01',
-        content => "# Managed by puppet\n",
+      target  => "${configs_directory_real}/${config}/disklist",
+      order   => '01',
+      content => "# Managed by puppet\n",
     }
     Concat::Fragment <<| tag == 'amanda_dle' |>> { target => "${configs_directory_real}/${config}/disklist" }
   }
