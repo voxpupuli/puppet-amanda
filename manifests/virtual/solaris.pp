@@ -1,5 +1,4 @@
 class amanda::virtual::solaris inherits amanda::virtual {
-
   User[$amanda::params::user] {
     profiles => [
       'ZFS File System Management',
@@ -10,5 +9,4 @@ class amanda::virtual::solaris inherits amanda::virtual {
   Package['amanda'] {
     provider => pkgutil,
   }
-
 }

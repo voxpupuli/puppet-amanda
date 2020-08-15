@@ -43,5 +43,4 @@ class amanda::client (
       tag          => 'amanda_client_host_keys',
     }
   }
-
 }

@@ -1,7 +1,7 @@
 include amanda::params
 
 class { 'amanda::server':
-  configs        => [ 'demo' ],
+  configs        => ['demo'],
   configs_source => 'modules/amanda/server',
 }
 

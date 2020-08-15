@@ -3,7 +3,7 @@ class amanda::virtual {
 
   case $facts['os']['name'] {
     'Solaris': { include amanda::virtual::solaris }
-    default:   { } # do nothing
+    default:   {} # do nothing
   }
 
   @user { $amanda::params::user:
@@ -47,7 +47,7 @@ class amanda::virtual {
     mode   => '0700',
   }
   @file { $amanda::params::amanda_files:
-    ensure => present,
+    ensure => file,
     mode   => '0600',
   }
 
@@ -139,5 +139,4 @@ class amanda::virtual {
     server       => $amanda::params::amandataped_path,
     server_args  => "-auth=bsdtcp ${amanda::params::server_daemons}";
   }
-
 }

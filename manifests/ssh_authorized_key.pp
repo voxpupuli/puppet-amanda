@@ -35,6 +35,4 @@ define amanda::ssh_authorized_key (
     options => $options_real,
     require => File["${amanda::params::homedir}/.ssh/authorized_keys"];
   }
-
 }
-
