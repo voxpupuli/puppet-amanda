@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-amanda/tree/v4.0.0) (2020-11-07)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-amanda/compare/v3.2.1...v4.0.0)
+
+**Breaking changes:**
+
+- modulesync 2.7.0 and drop puppet 4 [\#79](https://github.com/voxpupuli/puppet-amanda/pull/79) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Allow puppetlabs/concat 6.x, puppetlabs/stdlib 6.x [\#81](https://github.com/voxpupuli/puppet-amanda/pull/81) ([dhoppe](https://github.com/dhoppe))
+- Fix stray 'directory\_mode' reference left by bbaabd4 [\#78](https://github.com/voxpupuli/puppet-amanda/pull/78) ([cliff-svt](https://github.com/cliff-svt))
+
+**Merged pull requests:**
+
+- modulesync 3.0.0 & puppet-lint updates [\#89](https://github.com/voxpupuli/puppet-amanda/pull/89) ([bastelfreak](https://github.com/bastelfreak))
+- Remove duplicate CONTRIBUTING.md file [\#85](https://github.com/voxpupuli/puppet-amanda/pull/85) ([dhoppe](https://github.com/dhoppe))
+- Fix URL of badges at README.md [\#84](https://github.com/voxpupuli/puppet-amanda/pull/84) ([dhoppe](https://github.com/dhoppe))
+- Adding parameters to puppet-amanda/manifests/params.pp file for Redhat OSfamily. [\#80](https://github.com/voxpupuli/puppet-amanda/pull/80) ([datarame](https://github.com/datarame))
+- replace validate\_\* with assert\_type in disklist.pp [\#77](https://github.com/voxpupuli/puppet-amanda/pull/77) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.2.1](https://github.com/voxpupuli/puppet-amanda/tree/v3.2.1) (2018-10-14)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-amanda/compare/v3.2.0...v3.2.1)
