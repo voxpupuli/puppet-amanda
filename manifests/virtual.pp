@@ -1,6 +1,17 @@
 class amanda::virtual {
   include amanda::params
 
+  if $amanda::client::ensure == 'absent' {
+    $client_ensure = 'absent'
+  } else {
+    $client_ensure = 'present'
+  }
+  if $amanda::server::ensure == 'absent' {
+    $server_ensure = 'absent'
+  } else {
+    $server_ensure = 'present'
+  }
+
   case $facts['os']['name'] {
     'Solaris': { include amanda::virtual::solaris }
     default:   {} # do nothing
@@ -72,10 +83,12 @@ class amanda::virtual {
     }
   } else {
     @package { 'amanda/client':
+      ensure => $client_ensure,
       name   => $amanda::params::client_package,
       before => $post_package,
     }
     @package { 'amanda/server':
+      ensure => $server_ensure,
       name   => $amanda::params::server_package,
       before => $post_package,
     }
@@ -96,6 +109,7 @@ class amanda::virtual {
   }
 
   @xinetd::service { 'amanda_udp':
+    ensure       => $client_ensure,
     service_name => 'amanda',
     socket_type  => 'dgram',
     protocol     => 'udp',
@@ -106,6 +120,7 @@ class amanda::virtual {
     server_args  => "-auth=bsd ${amanda::params::client_daemons}",
   }
   @xinetd::service { 'amanda_tcp':
+    ensure       => $client_ensure,
     service_name => 'amanda',
     socket_type  => 'stream',
     protocol     => 'tcp',
@@ -116,6 +131,7 @@ class amanda::virtual {
     server_args  => "-auth=bsdtcp ${amanda::params::client_daemons}",
   }
   @xinetd::service { 'amanda_indexd':
+    ensure       => $server_ensure,
     service_name => 'amandaidx',
     socket_type  => 'stream',
     protocol     => 'tcp',
@@ -128,6 +144,7 @@ class amanda::virtual {
     server_args  => "-auth=bsdtcp ${amanda::params::server_daemons}",
   }
   @xinetd::service { 'amanda_taped':
+    ensure       => $server_ensure,
     service_name => 'amidxtape',
     socket_type  => 'stream',
     protocol     => 'tcp',

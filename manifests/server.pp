@@ -1,4 +1,5 @@
 class amanda::server (
+  String            $ensure                   = 'present',
   Array[String]     $configs                  = [],
   Optional[Boolean] $configs_directory        = undef,
   Boolean           $manage_configs_directory = true,
@@ -50,12 +51,13 @@ class amanda::server (
   }
 
   amanda::amandahosts { 'amanda::server::server_root@localhost':
+    ensure  => $ensure,
     content => 'localhost root amindexd amidxtaped',
     order   => '10';
   }
 
   amanda::config { $configs:
-    ensure                   => present,
+    ensure                   => $ensure,
     manage_configs_directory => $manage_configs_directory,
     configs_directory        => $configs_directory,
     manage_configs_source    => $manage_configs_source,
