@@ -1,15 +1,16 @@
 class amanda::server (
-  Array[String]     $configs                  = [],
-  Optional[Boolean] $configs_directory        = undef,
-  Boolean           $manage_configs_directory = true,
-  Boolean           $manage_configs_source    = true,
-  String            $configs_source           = 'modules/amanda/server/example',
-  String            $mode                     = '0644',
-  Optional[Boolean] $group                    = undef,
-  Optional[Boolean] $owner                    = undef,
-  Boolean           $xinetd                   = true,
-  Boolean           $manage_dle               = false,
-  Boolean           $export_host_keys         = false,
+  Enum['present', 'absent'] $ensure                   = 'present',
+  Array[String]             $configs                  = [],
+  Optional[Boolean]         $configs_directory        = undef,
+  Boolean                   $manage_configs_directory = true,
+  Boolean                   $manage_configs_source    = true,
+  String                    $configs_source           = 'modules/amanda/server/example',
+  String                    $mode                     = '0644',
+  Optional[Boolean]         $group                    = undef,
+  Optional[Boolean]         $owner                    = undef,
+  Boolean                   $xinetd                   = true,
+  Boolean                   $manage_dle               = false,
+  Boolean                   $export_host_keys         = false,
 ) {
   include amanda
   include amanda::params
@@ -50,12 +51,13 @@ class amanda::server (
   }
 
   amanda::amandahosts { 'amanda::server::server_root@localhost':
+    ensure  => $ensure,
     content => 'localhost root amindexd amidxtaped',
     order   => '10';
   }
 
   amanda::config { $configs:
-    ensure                   => present,
+    ensure                   => $ensure,
     manage_configs_directory => $manage_configs_directory,
     configs_directory        => $configs_directory,
     manage_configs_source    => $manage_configs_source,

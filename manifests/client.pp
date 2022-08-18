@@ -1,8 +1,9 @@
 class amanda::client (
-  $remote_user      = undef,
-  $server           = "backup.${facts['networking']['domain']}",
-  $xinetd           = true,
-  $export_host_keys = false,
+  Enum['present', 'absent'] $ensure           = 'present',
+  Optional[String]          $remote_user      = undef,
+  String[1]                 $server           = "backup.${facts['networking']['domain']}",
+  Boolean                   $xinetd           = true,
+  Boolean                   $export_host_keys = false,
 ) {
   include amanda
   include amanda::params
@@ -28,6 +29,7 @@ class amanda::client (
   }
 
   amanda::amandahosts { "amanda::client::amdump_${remote_user_real}@${server}":
+    ensure  => $ensure,
     content => "${server} ${remote_user_real} amdump",
     order   => '00';
   }
@@ -35,7 +37,7 @@ class amanda::client (
   if ($export_host_keys) {
     ## export our ssh host keys
     @@sshkey { "${::clientcert}_amanda": # lint:ignore:legacy_facts
-      ensure       => present,
+      ensure       => $ensure,
       host_aliases => [$facts['networking']['fqdn'],$facts['networking']['ip']],
       key          => $::sshrsakey, # lint:ignore:legacy_facts
       type         => 'ssh-rsa',
