@@ -1,9 +1,9 @@
 class amanda::client (
-  String           $ensure           = 'present',
-  Optional[String] $remote_user      = undef,
-  String           $server           = "backup.${facts['networking']['domain']}",
-  Boolean          $xinetd           = true,
-  Boolean          $export_host_keys = false,
+  Enum['present', 'absent'] $ensure           = 'present',
+  Optional[String]          $remote_user      = undef,
+  String[1]                 $server           = "backup.${facts['networking']['domain']}",
+  Boolean                   $xinetd           = true,
+  Boolean                   $export_host_keys = false,
 ) {
   include amanda
   include amanda::params
