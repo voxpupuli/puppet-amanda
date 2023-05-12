@@ -34,10 +34,10 @@ class amanda::client (
 
   if ($export_host_keys) {
     ## export our ssh host keys
-    @@sshkey { "${::clientcert}_amanda": # lint:ignore:legacy_facts
+    @@sshkey { "${facts['clientcert']}_amanda":
       ensure       => present,
       host_aliases => [$facts['networking']['fqdn'],$facts['networking']['ip']],
-      key          => $::sshrsakey, # lint:ignore:legacy_facts
+      key          => $facts['ssh']['rsa']['key'],
       type         => 'ssh-rsa',
       target       => "${amanda::params::homedir}/.ssh/known_hosts",
       tag          => 'amanda_client_host_keys',
