@@ -1,6 +1,6 @@
 # Amanda module for Puppet
 
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-amanda.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-amanda)
+![Build Status](https://github.com/voxpupuli/puppet-amanda/actions/workflows/ci.yml/badge.svg?branch=master)
 [![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-amanda/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-amanda)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/amanda)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/amanda.svg)](https://forge.puppetlabs.com/puppet/amanda)
