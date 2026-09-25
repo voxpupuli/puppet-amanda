@@ -81,6 +81,8 @@ define amanda::config (
       order   => '01',
       content => "# Managed by puppet\n",
     }
-    Concat::Fragment <<| tag == 'amanda_dle' |>> { target => "${configs_directory_real}/${config}/disklist" }
+    Concat::Fragment <<| tag == 'amanda_dle' and target == "${configs_directory_real}/${config}/disklist" |>> {
+      target => "${configs_directory_real}/${config}/disklist"
+    }
   }
 }
